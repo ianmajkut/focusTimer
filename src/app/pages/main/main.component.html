@@ -1,44 +1,3 @@
-<!-- <div>
-  <mat-toolbar color="primary">
-    <mat-toolbar-row>
-      <span>Focus Timer</span>
-      <span class="example-spacer"></span>
-      <button
-        mat-icon-button
-        class="example-icon favorite-icon"
-        aria-label="Example icon-button with heart icon"
-      >
-        <mat-icon>favorite</mat-icon>
-      </button>
-      <button
-        mat-icon-button
-        class="example-icon"
-        aria-label="Example icon-button with share icon"
-      >
-        <mat-icon>share</mat-icon>
-      </button>
-    </mat-toolbar-row>
-  </mat-toolbar>
-
-  <div class="container mt-3">
-    <div class=" header text-center">
-        <h1>Keep Yourself Concentrate</h1> 
-        <h2>Lorem psum</h2>
-    </div>
-
-    <div class="d-flex justify-content-center">
-        <mat-progress-spinner [color]="color"
-        [mode]="mode"
-        [value]="value"
-        [diameter]="300"
-        [strokeWidth]="10"></mat-progress-spinner>
-    </div>
-        
-    
-
-  </div>
-</div> -->
-
 <div class="navbar">
   <div class="logo">Focus Timer</div>
   <div class="right-navbar">
@@ -51,9 +10,94 @@
   <div class="container">
     <div>
       <h1>Keep Yourself Concentrate</h1>
-      <h2>if time is precious then make the most of it </h2>
+      <h2>
+        If time is precious, then make the most of it
+        <br />
+        using the pomodoro technique
+      </h2>
     </div>
-    <img src="../../../assets/undraw_time_management_re_tk5w.svg" alt="">
+    <div>
+      <img
+        class="header-img"
+        src="../../../assets/undraw_time_management_re_tk5w.svg"
+        alt=""
+      />
+    </div>
   </div>
 </div>
 
+<div class="curved-upper">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+    <path
+      fill="#f1faee"
+      fill-opacity="1"
+      d="M0,96L80,106.7C160,117,320,139,480,128C640,117,800,75,960,74.7C1120,75,1280,117,1360,138.7L1440,160L1440,0L1360,0C1280,0,1120,0,960,0C800,0,640,0,480,0C320,0,160,0,80,0L0,0Z"
+    ></path>
+  </svg>
+</div>
+<div class="container-main">
+  <div class="task">
+    <h2>Task</h2>
+    <form class="form" [formGroup]="myForm">
+      <mat-form-field appearance="fill">
+        <mat-label>Task Name</mat-label>
+        <input
+          matInput
+          autocomplete="off"
+          placeholder="E.g., Coding Session"
+          formControlName="taskName"
+        />
+        <mat-error *ngIf="myForm.invalid">This field is required</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Work Block Time</mat-label>
+        <input
+          matInput
+          autocomplete="off"
+          type="number"
+          formControlName="workingTime"
+        />
+        <mat-error *ngIf="myForm.controls['workingTime'].errors?.['required']">This field is required</mat-error>
+        <mat-error *ngIf="myForm.controls['workingTime'].errors?.['min']">The value of this field must be al least 1</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Rest Block Time</mat-label>
+        <input
+          matInput
+          autocomplete="off"
+          type="number"
+          formControlName="restTime"
+        />
+        <mat-error *ngIf="myForm.controls['restTime'].errors?.['required']">This field is required</mat-error>
+        <mat-error *ngIf="myForm.controls['restTime'].errors?.['min']">The value of this field must be al least 1</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Description</mat-label>
+        <textarea matInput formControlName="description"></textarea>
+      </mat-form-field>
+    </form>
+  </div>
+  <div class="timer-container">
+    <h2>Timer</h2>
+    <div class="container-buttons">
+      <button mat-fab color="warn" (click)="saveTask()" [disabled]="myForm.invalid">
+        <mat-icon>play_arrow</mat-icon>
+      </button>
+      <button mat-fab color="warn">
+        <mat-icon>pause</mat-icon>
+      </button>
+      <button mat-fab color="warn">
+        <mat-icon>stop</mat-icon>
+      </button>
+    </div>
+    <section>
+      <mat-progress-spinner
+        [color]="color"
+        [mode]="mode"
+        [value]="value"
+        [diameter]="200"
+        [strokeWidth]="20"
+      ></mat-progress-spinner>
+    </section>
+  </div>
+</div>

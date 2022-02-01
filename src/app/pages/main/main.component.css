@@ -2,7 +2,7 @@
 .navbar {
   display: flex;
   background: #005f73;
-  color: white;
+  color: #f1faee;
   height: 60px;
   justify-content: space-between;
   align-items: center;
@@ -33,9 +33,105 @@
 }
 
 .btn-log-in {
-  background: white;
+  background: #f1faee;
 }
 
 .btn-sign-up {
-  background: white;
+  background: #f1faee;
+}
+
+.header .container {
+  background: #f1faee;
+  padding-top: 20px ;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  position: relative;
+  margin-bottom: -20px;
+}
+
+.header h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  line-height: 1.2;
+}
+
+.header h2 {
+  font-size: 1.5rem;
+}
+
+.header-img {
+  max-width: 400px;
+}
+
+.curved-upper svg {
+  display: block;
+}
+
+.curved-upper {
+  background: #e9d8a6;
+  
+}
+
+.container-main {
+  background: #e9d8a6;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.task {
+  flex-direction: column;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.container-main h2 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  line-height: 1.2;
+  position: relative;
+  margin-top: -130px;
+}
+
+
+
+.form {
+  display: flex;
+  flex-direction: column;
+  margin: 30px 0;
+}
+
+.timer-container {
+  background: #e9d8a6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.timer-container h2 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  line-height: 1.2;
+  position: relative;
+  margin-top: -130px;
+}
+
+mat-progress-spinner {
+  margin: 30px 0;
+}
+
+.container-buttons {
+  flex-direction: row;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.container-buttons button {
+  margin: 0 10px;
+}
+
+mat-form-field {
+  margin: 15px 0;
 }
