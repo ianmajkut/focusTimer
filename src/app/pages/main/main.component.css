@@ -117,6 +117,14 @@
   margin-top: -130px;
 }
 
+:host /deep/.mat-progress-spinner circle {
+  /* stroke: aliceblue; */
+}
+
+#background {
+ stroke: aliceblue;
+}
+
 mat-progress-spinner {
   margin: 30px 0;
 }
