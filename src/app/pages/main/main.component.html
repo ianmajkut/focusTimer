@@ -91,7 +91,7 @@
   <div class="timer-container">
     <h2>Timer</h2>
     <div class="container-buttons">
-      <button mat-fab color="warn" (click)="saveTask()" [disabled]="myForm.invalid" *ngIf="showPlayButton">
+      <button mat-fab color="warn" (click)="play()" [disabled]="myForm.invalid" *ngIf="showPlayButton">
         <mat-icon>play_arrow</mat-icon>
       </button>
       <button mat-fab color="warn" (click)="pauseTask()" *ngIf="showPauseButton">
@@ -111,7 +111,7 @@
       ></mat-progress-spinner>
       <div>
         <h3>{{typeOfBlock}}</h3>
-        <h3>{{showingTime}}</h3>
+        <h3 *ngIf="showingTime > 0">{{showingTime}}</h3>
       </div>
     </section>
   </div>

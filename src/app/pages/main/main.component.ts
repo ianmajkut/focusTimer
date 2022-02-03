@@ -23,6 +23,9 @@ export class MainComponent {
   mode: ProgressSpinnerMode = 'determinate';
   value = 100;
 
+  creationOfTask: boolean = true;
+  pausedState: boolean = false;
+  resumeTask: boolean = false;
   tasks: Task[] = [];
 
   //Timer
@@ -53,42 +56,38 @@ export class MainComponent {
 
   //TODO make changes because, clicking the 'play' button, it
   //starts again and not resume the timer running
-  saveTask() {
-    const { workingTime, amountBlocks } = this.myForm.value;
-    this.workingTimeForSpinner = workingTime;
-    this.roundsBlocks = amountBlocks;
-    this.tasks.push(this.myForm.value);
-    this.showPauseButton = true;
-    this.showStopButton = true;
-    //console.log(this.myForm.value);
-    // console.log(this.tasks);
-    this.workingTimer(this.workingTimeForSpinner * 60, this.roundsBlocks);
-    //await this.restTimer(restTime);
+  play() {
+    if (this.creationOfTask) {
+      this.creationOfTask = false;
+      const { workingTime, amountBlocks } = this.myForm.value;
+      this.workingTimeForSpinner = workingTime;
+      this.roundsBlocks = amountBlocks;
+      //this.tasks.push(this.myForm.value);
+      this.showPauseButton = true;
+      this.showStopButton = true;
+      //console.log(this.myForm.value);
+      // console.log(this.tasks);
+      this.workingTimer(this.workingTimeForSpinner * 60, this.roundsBlocks);
+    }
+    if (this.pausedState) {
+      this.pausedState = false;
+      this.resumeTask = true;
+      this.workingTimer(this.showingTime, this.roundsBlocks);
+    }
   }
 
   pauseTask() {
     this.workingSubs.unsubscribe();
+    this.pausedState = true;
   }
 
   workingTimer(workTime: number, rounds: number) {
     if (rounds > 0) {
       this.typeOfBlock = 'Working Time Countdown:';
       --rounds;
+      //rounds = this.roundsBlocks;
       this.color = 'warn';
       const timeWork = workTime;
-      /*
-      const countDownWork = this.timerInterval.pipe(take(timeWork));
-      return countDownWork.subscribe((val) => {
-        this.currentWorkingTime = timeWork - (val + 1);
-        this.value = (this.currentWorkingTime * 100) / timeWork;
-        console.log(`Work timing ${this.currentWorkingTime} sec`);
-        if (this.currentWorkingTime == 0) {
-          const { restTime } = this.myForm.value;
-          this.restingTimeForSpinner = restTime;
-          this.restTimer(this.restingTimeForSpinner * 60, rounds);
-        }
-      });
-      */
       this.workingSubs = this.timerInterval
         .pipe(take(timeWork))
         .subscribe((val) => {
@@ -107,6 +106,7 @@ export class MainComponent {
     }
     this.typeOfBlock = '';
     this.showingTime = 0;
+    this.creationOfTask = true;
     return;
   }
 
@@ -115,21 +115,10 @@ export class MainComponent {
       this.typeOfBlock = 'Resting Time Countdown:';
       this.color = 'primary';
       const timeRest = restTime;
-      /*
-      const countDownRest = this.timerInterval.pipe(take(timeRest));
-      return countDownRest.subscribe((val) => {
-        this.currentRestingTime = timeRest - (val + 1);
-        this.value = (this.currentRestingTime * 100) / restTime;
-        console.log(`Rest timing ${this.currentRestingTime} sec`);
-        if (this.currentRestingTime == 0) {
-          this.workingTimer(this.workingTimeForSpinner * 60, rounds);
-        }
-      });
-      */
       this.restingSubs = this.timerInterval
         .pipe(take(timeRest))
         .subscribe((val) => {
-          this.currentRestingTime = timeRest - (val - 1);
+          this.currentRestingTime = timeRest - (val + 1);
           this.showingTime = this.currentRestingTime;
           //Progress Spinner value
           this.value = (this.currentRestingTime * 100) / timeRest;
