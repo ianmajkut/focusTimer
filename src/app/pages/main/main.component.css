@@ -121,12 +121,15 @@
   /* stroke: aliceblue; */
 }
 
-#background {
- stroke: aliceblue;
-}
-
 mat-progress-spinner {
   margin: 30px 0;
+}
+
+.progress-section div {
+  flex-direction: column;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .container-buttons {

@@ -50,7 +50,7 @@
         <mat-error *ngIf="myForm.invalid">This field is required</mat-error>
       </mat-form-field>
       <mat-form-field appearance="fill">
-        <mat-label>Work Block Time</mat-label>
+        <mat-label>Work Block Time (min)</mat-label>
         <input
           matInput
           autocomplete="off"
@@ -61,7 +61,18 @@
         <mat-error *ngIf="myForm.controls['workingTime'].errors?.['min']">The value of this field must be al least 1</mat-error>
       </mat-form-field>
       <mat-form-field appearance="fill">
-        <mat-label>Rest Block Time</mat-label>
+        <mat-label>Number of Working Blocks</mat-label>
+        <input
+          matInput
+          autocomplete="off"
+          type="number"
+          formControlName="amountBlocks"
+        />
+        <mat-error *ngIf="myForm.controls['amountBlocks'].errors?.['required']">This field is required</mat-error>
+        <mat-error *ngIf="myForm.controls['amountBlocks'].errors?.['min']">The value of this field must be al least 1</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Rest Block Time (min)</mat-label>
         <input
           matInput
           autocomplete="off"
@@ -80,17 +91,17 @@
   <div class="timer-container">
     <h2>Timer</h2>
     <div class="container-buttons">
-      <button mat-fab color="warn" (click)="saveTask()" [disabled]="myForm.invalid">
+      <button mat-fab color="warn" (click)="saveTask()" [disabled]="myForm.invalid" *ngIf="showPlayButton">
         <mat-icon>play_arrow</mat-icon>
       </button>
-      <button mat-fab color="warn">
+      <button mat-fab color="warn" (click)="pauseTask()" *ngIf="showPauseButton">
         <mat-icon>pause</mat-icon>
       </button>
-      <button mat-fab color="warn">
+      <button mat-fab color="warn" *ngIf="showStopButton">
         <mat-icon>stop</mat-icon>
       </button>
     </div>
-    <section>
+    <section class="progress-section">
       <mat-progress-spinner
         [color]="color"
         [mode]="mode"
@@ -98,6 +109,10 @@
         [diameter]="200"
         [strokeWidth]="20"
       ></mat-progress-spinner>
+      <div>
+        <h3>{{typeOfBlock}}</h3>
+        <h3>{{showingTime}}</h3>
+      </div>
     </section>
   </div>
 </div>
