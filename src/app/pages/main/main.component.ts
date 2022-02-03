@@ -54,8 +54,7 @@ export class MainComponent {
 
   constructor(private formBuilder: FormBuilder) {}
 
-  //TODO make changes because, clicking the 'play' button, it
-  //starts again and not resume the timer running
+  //TODO make the value of the progress spinner doesn't change when the timer is paused
   play() {
     if (this.creationOfTask) {
       this.creationOfTask = false;
