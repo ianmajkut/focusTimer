@@ -8,7 +8,7 @@
 
 <div class="header">
   <div class="container">
-    <div>
+    <div class="text">
       <h1>Keep Yourself Concentrate</h1>
       <h2>
         If time is precious, then make the most of it
@@ -16,7 +16,7 @@
         using the pomodoro technique
       </h2>
     </div>
-    <div>
+    <div class="img">
       <img
         class="header-img"
         src="../../../assets/undraw_time_management_re_tk5w.svg"
@@ -39,7 +39,7 @@
   <div class="task">
     <h2>Task</h2>
     <form class="form" [formGroup]="myForm">
-      <mat-form-field appearance="fill">
+      <mat-form-field appearance="outline">
         <mat-label>Task Name</mat-label>
         <input
           matInput
@@ -49,7 +49,7 @@
         />
         <mat-error *ngIf="myForm.invalid">This field is required</mat-error>
       </mat-form-field>
-      <mat-form-field appearance="fill">
+      <mat-form-field appearance="outline">
         <mat-label>Work Block Time (min)</mat-label>
         <input
           matInput
@@ -57,10 +57,14 @@
           type="number"
           formControlName="workingTime"
         />
-        <mat-error *ngIf="myForm.controls['workingTime'].errors?.['required']">This field is required</mat-error>
-        <mat-error *ngIf="myForm.controls['workingTime'].errors?.['min']">The value of this field must be al least 1</mat-error>
+        <mat-error *ngIf="myForm.controls['workingTime'].errors?.['required']"
+          >This field is required</mat-error
+        >
+        <mat-error *ngIf="myForm.controls['workingTime'].errors?.['min']"
+          >The value of this field must be al least 0.5 (30 sec)</mat-error
+        >
       </mat-form-field>
-      <mat-form-field appearance="fill">
+      <mat-form-field appearance="outline">
         <mat-label>Number of Working Blocks</mat-label>
         <input
           matInput
@@ -68,10 +72,14 @@
           type="number"
           formControlName="amountBlocks"
         />
-        <mat-error *ngIf="myForm.controls['amountBlocks'].errors?.['required']">This field is required</mat-error>
-        <mat-error *ngIf="myForm.controls['amountBlocks'].errors?.['min']">The value of this field must be al least 1</mat-error>
+        <mat-error *ngIf="myForm.controls['amountBlocks'].errors?.['required']"
+          >This field is required</mat-error
+        >
+        <mat-error *ngIf="myForm.controls['amountBlocks'].errors?.['min']"
+          >The value of this field must be al least 2</mat-error
+        >
       </mat-form-field>
-      <mat-form-field appearance="fill">
+      <mat-form-field appearance="outline">
         <mat-label>Rest Block Time (min)</mat-label>
         <input
           matInput
@@ -79,10 +87,14 @@
           type="number"
           formControlName="restTime"
         />
-        <mat-error *ngIf="myForm.controls['restTime'].errors?.['required']">This field is required</mat-error>
-        <mat-error *ngIf="myForm.controls['restTime'].errors?.['min']">The value of this field must be al least 1</mat-error>
+        <mat-error *ngIf="myForm.controls['restTime'].errors?.['required']"
+          >This field is required</mat-error
+        >
+        <mat-error *ngIf="myForm.controls['restTime'].errors?.['min']"
+          >The value of this field must be al least 0.5 (30 sec)</mat-error
+        >
       </mat-form-field>
-      <mat-form-field appearance="fill">
+      <mat-form-field appearance="outline">
         <mat-label>Description</mat-label>
         <textarea matInput formControlName="description"></textarea>
       </mat-form-field>
@@ -91,18 +103,29 @@
   <div class="timer-container">
     <h2>Timer</h2>
     <div class="container-buttons">
-      <button mat-fab color="warn" (click)="play()" [disabled]="myForm.invalid" *ngIf="showPlayButton">
+      <button
+        mat-fab
+        color="primary"
+        (click)="play()"
+        [disabled]="myForm.invalid"
+        *ngIf="showPlayButton"
+      >
         <mat-icon>play_arrow</mat-icon>
       </button>
-      <button mat-fab color="warn" (click)="pauseTask()" *ngIf="showPauseButton">
+      <button
+        mat-fab
+        color="primary"
+        (click)="pauseTask()"
+        *ngIf="showPauseButton"
+      >
         <mat-icon>pause</mat-icon>
       </button>
-      <button mat-fab color="warn" *ngIf="showStopButton">
+      <button mat-fab color="primary" *ngIf="showStopButton">
         <mat-icon>stop</mat-icon>
       </button>
     </div>
     <section class="progress-section">
-      <mat-progress-spinner
+      <!-- <mat-progress-spinner
         [color]="color"
         [mode]="mode"
         [value]="value"
@@ -110,9 +133,29 @@
         [strokeWidth]="20"
       ></mat-progress-spinner>
       <div>
-        <h3>{{typeOfBlock}}</h3>
-        <h3 *ngIf="showingTime > 0">{{showingTime}}</h3>
-      </div>
+        <h3>{{ typeOfBlock }}</h3>
+        <h3 *ngIf="showingTime > 0">{{ showingTime }}</h3>
+      </div> -->
+      <circle-progress
+        [percent]="percent"
+        [radius]="60"
+        [maxPercent]="100"
+        [outerStrokeGradient]="true"
+        [outerStrokeWidth]="10"
+        [outerStrokeColor]="outerStrokeColor"
+        [outerStrokeGradientStopColor]="outerStrokeGradientStopColor"
+        [innerStrokeColor]="'#ffffff'"
+        [innerStrokeWidth]="10"
+        [animateTitle]="true"
+        [animateSubtitle]="true"
+        [responsive]="true"
+        [title]="title"
+        [subtitle]="subtitle"
+        [animation]="true"
+        [animationDuration]="300"
+        [startFromZero]= "false"
+        [renderOnClick]= "false"
+      ></circle-progress>
     </section>
   </div>
 </div>

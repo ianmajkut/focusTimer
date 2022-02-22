@@ -19,9 +19,17 @@ interface Task {
 })
 export class MainComponent {
   //Spinner
-  color: ThemePalette = 'warn';
-  mode: ProgressSpinnerMode = 'determinate';
-  value = 100;
+  // color: ThemePalette = 'warn';
+  // mode: ProgressSpinnerMode = 'determinate';
+  // value = 100;
+
+  //Circle Spinner
+  percent!: number;
+  title = 'Start a task';
+  subtitle = '';
+  //Colors Circle
+  outerStrokeColor!: string;
+  outerStrokeGradientStopColor!: string;
 
   creationOfTask: boolean = true;
   pausedState: boolean = false;
@@ -46,9 +54,9 @@ export class MainComponent {
 
   myForm: FormGroup = this.formBuilder.group({
     taskName: [, [Validators.required]],
-    workingTime: [, [Validators.required, Validators.min(1)]],
-    amountBlocks: [, [Validators.required, Validators.min(1)]],
-    restTime: [, [Validators.required, Validators.min(1)]],
+    workingTime: [, [Validators.required, Validators.min(0.5)]],
+    amountBlocks: [, [Validators.required, Validators.min(2)]],
+    restTime: [, [Validators.required, Validators.min(0.5)]],
     description: [,]
   });
 
@@ -81,19 +89,27 @@ export class MainComponent {
   }
 
   workingTimer(workTime: number, rounds: number) {
+    this.outerStrokeColor = '#4882c2';
+    this.outerStrokeGradientStopColor = '#53a9ff';
     if (rounds > 0) {
       this.typeOfBlock = 'Working Time Countdown:';
+      //Cicle
+      this.title = 'Working Countdown:';
       --rounds;
       //rounds = this.roundsBlocks;
-      this.color = 'warn';
+      // this.color = 'warn';
       const timeWork = workTime;
       this.workingSubs = this.timerInterval
         .pipe(take(timeWork))
         .subscribe((val) => {
           this.currentWorkingTime = timeWork - (val + 1);
-          this.showingTime = this.currentWorkingTime;
           //Progress Spinner value
-          this.value = (this.currentWorkingTime * 100) / timeWork;
+          this.showingTime = this.currentWorkingTime;
+          // this.value = (this.currentWorkingTime * 100) / timeWork;
+          //Circle
+          this.subtitle = this.currentWorkingTime.toString();
+          this.percent = (this.currentWorkingTime * 100) / timeWork;
+          console.log(this.percent);
           //console.log(`Work timing ${this.currentWorkingTime} sec`);
           if (this.currentWorkingTime == 0) {
             const { restTime } = this.myForm.value;
@@ -103,24 +119,36 @@ export class MainComponent {
         });
       return this.workingSubs;
     }
+    //Spinner
     this.typeOfBlock = '';
     this.showingTime = 0;
     this.creationOfTask = true;
+    //Circle
+    this.title = 'Start a task';
+    this.subtitle = '';
     return;
   }
 
   restTimer(restTime: number, rounds: number) {
+    this.outerStrokeColor = '#e63946';
+    this.outerStrokeGradientStopColor = '#e63946';
     if (rounds > 0) {
       this.typeOfBlock = 'Resting Time Countdown:';
-      this.color = 'primary';
+      // this.color = 'primary';
+      //Circle
+      this.title = 'Resting Countdown:';
+
       const timeRest = restTime;
       this.restingSubs = this.timerInterval
         .pipe(take(timeRest))
         .subscribe((val) => {
           this.currentRestingTime = timeRest - (val + 1);
-          this.showingTime = this.currentRestingTime;
           //Progress Spinner value
-          this.value = (this.currentRestingTime * 100) / timeRest;
+          // this.value = (this.currentRestingTime * 100) / timeRest;
+          this.showingTime = this.currentRestingTime;
+          //Circle
+          this.subtitle = this.currentRestingTime.toString();
+          this.percent = (this.currentRestingTime * 100) / timeRest;
           //console.log(`Rest timing ${this.currentRestingTime} sec`);
           if (this.currentRestingTime == 0) {
             this.workingTimer(this.workingTimeForSpinner * 60, rounds);
@@ -130,6 +158,9 @@ export class MainComponent {
     }
     this.typeOfBlock = '';
     this.showingTime = 0;
+    //Circle
+    this.title = 'Start a task';
+    this.subtitle = '';
     return;
   }
 }

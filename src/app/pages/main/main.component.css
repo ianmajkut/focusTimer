@@ -1,8 +1,8 @@
 
 .navbar {
   display: flex;
-  background: #005f73;
-  color: #f1faee;
+  background: #457b9d;
+  color: #ffffff;
   height: 60px;
   justify-content: space-between;
   align-items: center;
@@ -62,19 +62,21 @@
 
 .header-img {
   max-width: 400px;
+  width: auto;
 }
 
 .curved-upper svg {
   display: block;
+  padding-bottom: 50px;
 }
 
 .curved-upper {
-  background: #e9d8a6;
+  background: #d0edf5;
   
 }
 
 .container-main {
-  background: #e9d8a6;
+  background: #d0edf5;
   display: flex;
   justify-content: space-evenly;
 }
@@ -99,11 +101,9 @@
 .form {
   display: flex;
   flex-direction: column;
-  margin: 30px 0;
 }
 
 .timer-container {
-  background: #e9d8a6;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -117,12 +117,18 @@
   margin-top: -130px;
 }
 
-:host /deep/.mat-progress-spinner circle {
-  /* stroke: aliceblue; */
-}
+/* :host /deep/.mat-progress-spinner circle {
+   stroke: aliceblue; 
+} */
 
 mat-progress-spinner {
   margin: 30px 0;
+}
+
+.progress-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .progress-section div {
@@ -145,4 +151,40 @@ mat-progress-spinner {
 
 mat-form-field {
   margin: 15px 0;
+}
+
+@media screen and (max-width: 963px) {
+  .header .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .text {
+    text-align: center;
+    margin: 30px 0 40px 0;
+  }
+
+  .container-main h2 {
+    position: relative;
+    margin-top: -90px;
+  }
+}
+
+@media screen and (max-width: 615px ){
+  .header-img{
+    width: 300px;
+    margin-bottom: 50px;
+  }
+  .container-main {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    text-align: center;
+  }
+  .timer-container {
+    margin-top: 150px;
+  }
+  
 }
