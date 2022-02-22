@@ -120,7 +120,7 @@
       >
         <mat-icon>pause</mat-icon>
       </button>
-      <button mat-fab color="primary" *ngIf="showStopButton">
+      <button mat-fab color="primary" *ngIf="showStopButton" (click)="stopTask()">
         <mat-icon>stop</mat-icon>
       </button>
     </div>

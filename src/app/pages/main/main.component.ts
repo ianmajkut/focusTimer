@@ -54,9 +54,9 @@ export class MainComponent {
 
   myForm: FormGroup = this.formBuilder.group({
     taskName: [, [Validators.required]],
-    workingTime: [, [Validators.required, Validators.min(0.5)]],
+    workingTime: [, [Validators.required]],
     amountBlocks: [, [Validators.required, Validators.min(2)]],
-    restTime: [, [Validators.required, Validators.min(0.5)]],
+    restTime: [, [Validators.required]],
     description: [,]
   });
 
@@ -88,7 +88,22 @@ export class MainComponent {
     this.pausedState = true;
   }
 
+  stopTask() {
+    this.workingSubs.unsubscribe();
+    this.creationOfTask = true;
+    this.myForm.reset();
+    this.workingTimeForSpinner = 0;
+    this.roundsBlocks = 0;
+    this.showPauseButton = false;
+    this.showStopButton = false;
+    this.percent = 0;
+    this.title = '';
+    this.subtitle = '';
+  }
+
   workingTimer(workTime: number, rounds: number) {
+    this.showPauseButton = true;
+    this.showStopButton = true;
     this.outerStrokeColor = '#4882c2';
     this.outerStrokeGradientStopColor = '#53a9ff';
     if (rounds > 0) {
@@ -102,7 +117,9 @@ export class MainComponent {
       this.workingSubs = this.timerInterval
         .pipe(take(timeWork))
         .subscribe((val) => {
+          console.log(`Val: ${val}. TimeWork: ${timeWork}`);
           this.currentWorkingTime = timeWork - (val + 1);
+          console.log(`Current working time: ${this.currentWorkingTime}`);
           //Progress Spinner value
           this.showingTime = this.currentWorkingTime;
           // this.value = (this.currentWorkingTime * 100) / timeWork;
@@ -119,17 +136,12 @@ export class MainComponent {
         });
       return this.workingSubs;
     }
-    //Spinner
-    this.typeOfBlock = '';
-    this.showingTime = 0;
-    this.creationOfTask = true;
-    //Circle
-    this.title = 'Start a task';
-    this.subtitle = '';
     return;
   }
 
   restTimer(restTime: number, rounds: number) {
+    this.showPauseButton = false;
+    this.showStopButton = false;
     this.outerStrokeColor = '#e63946';
     this.outerStrokeGradientStopColor = '#e63946';
     if (rounds > 0) {
@@ -156,11 +168,16 @@ export class MainComponent {
         });
       return this.restingSubs;
     }
-    this.typeOfBlock = '';
-    this.showingTime = 0;
+    console.log('hi');
     //Circle
     this.title = 'Start a task';
     this.subtitle = '';
+    this.creationOfTask = true;
+    this.workingSubs.unsubscribe();
+    this.restingSubs.unsubscribe();
+
+    //Form
+    this.myForm.reset();
     return;
   }
 }
