@@ -15,6 +15,11 @@
         <br />
         using the pomodoro technique
       </h2>
+      <Particles
+        *ngIf="!confettiHide"
+        id="tsparticles"
+        [options]="options"
+      ></Particles>
     </div>
     <div class="img">
       <img
@@ -71,6 +76,7 @@
           autocomplete="off"
           type="number"
           formControlName="amountBlocks"
+          min="0"
         />
         <mat-error *ngIf="myForm.controls['amountBlocks'].errors?.['required']"
           >This field is required</mat-error
@@ -86,6 +92,7 @@
           autocomplete="off"
           type="number"
           formControlName="restTime"
+          min="0"
         />
         <mat-error *ngIf="myForm.controls['restTime'].errors?.['required']"
           >This field is required</mat-error
@@ -120,7 +127,12 @@
       >
         <mat-icon>pause</mat-icon>
       </button>
-      <button mat-fab color="primary" *ngIf="showStopButton" (click)="stopTask()">
+      <button
+        mat-fab
+        color="primary"
+        *ngIf="showStopButton"
+        (click)="stopTask()"
+      >
         <mat-icon>stop</mat-icon>
       </button>
     </div>
@@ -153,8 +165,8 @@
         [subtitle]="subtitle"
         [animation]="true"
         [animationDuration]="300"
-        [startFromZero]= "false"
-        [renderOnClick]= "false"
+        [startFromZero]="false"
+        [renderOnClick]="false"
       ></circle-progress>
     </section>
   </div>

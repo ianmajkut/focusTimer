@@ -9,6 +9,8 @@ import { MaterialModule } from '../material/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
 // Import ng-circle-progress
 import { NgCircleProgressModule } from 'ng-circle-progress';
+import { NgParticlesModule } from 'ng-particles';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [MainComponent, LoginComponent, SigninComponent],
@@ -35,7 +37,8 @@ import { NgCircleProgressModule } from 'ng-circle-progress';
       clockwise: false,
       startFromZero: false,
       titleFontSize: '10'
-    })
+    }),
+    NgParticlesModule
   ]
 })
 export class PagesModule {}
