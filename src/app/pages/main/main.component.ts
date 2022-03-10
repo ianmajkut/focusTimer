@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ThemePalette } from '@angular/material/core';
 import { ProgressSpinnerMode } from '@angular/material/progress-spinner';
+import { ToastrService } from 'ngx-toastr';
 import { interval, Observable, Subscription, timer } from 'rxjs';
 import { take } from 'rxjs/operators';
 
@@ -20,6 +21,11 @@ interface Task {
   styleUrls: ['./main.component.css']
 })
 export class MainComponent {
+  constructor(
+    private formBuilder: FormBuilder,
+    private toastr: ToastrService
+  ) {}
+
   confettiHide: boolean = true;
   options: ISourceOptions = {
     particles: {
@@ -184,7 +190,6 @@ export class MainComponent {
     description: [,]
   });
 
-  constructor(private formBuilder: FormBuilder) {}
   play() {
     if (this.creationOfTask) {
       this.creationOfTask = false;
@@ -307,8 +312,21 @@ export class MainComponent {
 
   launchConfetti() {
     this.confettiHide = false;
+    this.toastr.success(
+      'Congrats!',
+      'You are very productive! You have completed your task!',
+      {
+        timeOut: 5000,
+        extendedTimeOut: 3000,
+        disableTimeOut: false,
+        closeButton: true,
+        positionClass: 'toast-top-center',
+        progressBar: true,
+        progressAnimation: 'decreasing'
+      }
+    );
     setTimeout(() => {
       this.confettiHide = true;
-    }, 3000);
+    }, 5000);
   }
 }

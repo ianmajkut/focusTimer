@@ -53,10 +53,17 @@
   font-size: 2.5rem;
   font-weight: bold;
   line-height: 1.2;
+  display: flex;
+
 }
 
 .header h2 {
   font-size: 1.5rem;
+}
+
+.text h2 .underline {
+  text-decoration: #457b9d solid underline;
+  text-decoration-skip: ink;
 }
 
 .header-img {
@@ -86,6 +93,10 @@
   align-items: center;
 }
 
+.task h2 {
+  display: flex;
+}
+
 .container-main h2 {
   font-size: 2.5rem;
   font-weight: bold;
@@ -111,6 +122,8 @@
   line-height: 1.2;
   position: relative;
   margin-top: -130px;
+  display: flex;
+  align-items: center;
 }
 
 /* :host /deep/.mat-progress-spinner circle {
