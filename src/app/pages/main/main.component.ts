@@ -5,15 +5,8 @@ import { ProgressSpinnerMode } from '@angular/material/progress-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { interval, Observable, Subscription, timer } from 'rxjs';
 import { take } from 'rxjs/operators';
-
+import { Task } from '../../interfaces/interface';
 import { ISourceOptions } from 'tsparticles';
-
-interface Task {
-  taskName: string;
-  workingTime: number;
-  restTime: number;
-  description?: string;
-}
 
 @Component({
   selector: 'app-main',
@@ -21,12 +14,9 @@ interface Task {
   styleUrls: ['./main.component.css']
 })
 export class MainComponent {
-  constructor(
-    private formBuilder: FormBuilder,
-    private toastr: ToastrService
-  ) {}
-
   confettiHide: boolean = true;
+
+  //Stle for Conffeti
   options: ISourceOptions = {
     particles: {
       number: {
@@ -164,7 +154,7 @@ export class MainComponent {
   creationOfTask: boolean = true;
   pausedState: boolean = false;
   resumeTask: boolean = false;
-  tasks: Task[] = [];
+  completedTasks: Task[] = [];
 
   //Timer
   timerInterval = interval(1000);
@@ -189,6 +179,11 @@ export class MainComponent {
     restTime: ['0.1', [Validators.required]],
     description: [,]
   });
+
+  constructor(private formBuilder: FormBuilder, private toastr: ToastrService) {
+    this.completedTasks =
+      JSON.parse(localStorage.getItem('completedTasks')!) || [];
+  }
 
   play() {
     if (this.creationOfTask) {
@@ -305,16 +300,20 @@ export class MainComponent {
     this.restingSubs.unsubscribe();
 
     //Form
+    this.completedTasks.push(this.myForm.value);
+    this.saveLocalStorage(this.completedTasks);
+
     this.myForm.reset();
     this.launchConfetti();
+
     return;
   }
 
   launchConfetti() {
     this.confettiHide = false;
     this.toastr.success(
-      'Congrats!',
       'You are very productive! You have completed your task!',
+      'Congrats!',
       {
         timeOut: 5000,
         extendedTimeOut: 3000,
@@ -328,5 +327,9 @@ export class MainComponent {
     setTimeout(() => {
       this.confettiHide = true;
     }, 5000);
+  }
+
+  saveLocalStorage(completedTasks: Task[]) {
+    localStorage.setItem('completedTasks', JSON.stringify(completedTasks));
   }
 }

@@ -11,9 +11,15 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { NgParticlesModule } from 'ng-particles';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { TaskCardComponent } from './components/task-card/task-card.component';
 
 @NgModule({
-  declarations: [MainComponent, LoginComponent, SigninComponent],
+  declarations: [
+    MainComponent,
+    LoginComponent,
+    SigninComponent,
+    TaskCardComponent
+  ],
   imports: [
     CommonModule,
     PagesRoutingModule,
