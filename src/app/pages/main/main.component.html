@@ -1,8 +1,10 @@
 <div class="navbar">
   <div class="logo">Focus Timer</div>
   <div class="right-navbar">
-    <button class="btn btn-log-in">Log In</button>
-    <button class="btn btn-sign-up">Sign Up</button>
+    <button class="btn-navbar btn-log-in" routerLink="/auth">Log In</button>
+    <button class="btn-navbar btn-sign-up" routerLink="/auth/signup">
+      Sign Up
+    </button>
   </div>
 </div>
 
@@ -46,9 +48,7 @@
   <div class="task">
     <h2>
       Task
-      <img
-        src="https://img.icons8.com/stickers/45/000000/task-completed--v2.png"
-      />
+      <img src="https://img.icons8.com/stickers/45/000000/pencil.png" />
     </h2>
     <form class="form" [formGroup]="myForm">
       <mat-form-field appearance="outline">
@@ -180,27 +180,53 @@
     </section>
   </div>
 </div>
-<div class="container-tasks" *ngIf="completedTasks && completedTasks.length > 0; else emptyTask">
-  <div class="tasks" >
-    <app-task-card *ngFor="let task of completedTasks" [taskInput]="task"></app-task-card>
-  </div>
+<div
+  class="container-tasks"
+  *ngIf="completedTasks && completedTasks.length > 0; else emptyTask"
+>
+  <mat-card class="card-tasks">
+    <mat-card-title>
+      <h2>
+        Completed Tasks
+        <img
+          src="https://img.icons8.com/stickers/45/000000/task-completed--v2.png"
+        />
+      </h2>
+    </mat-card-title>
+    <mat-card-content>
+      <div class="tasks">
+        <app-task-card
+          *ngFor="let task of completedTasks; let i = index"
+          [taskInput]="task"
+          [indexTask]="i"
+        ></app-task-card>
+      </div>
+    </mat-card-content>
+  </mat-card>
 </div>
 <ng-template #emptyTask>
   <div class="empty-task-container">
-    <mat-card class="card">
+    <mat-card class="card-empty">
       <mat-card-title>
         <h2>
           You don't have any completed tasks
-          <img src="https://img.icons8.com/stickers/100/000000/sad-cloud.png"/>
+          <img src="https://img.icons8.com/stickers/100/000000/sad-cloud.png" />
         </h2>
       </mat-card-title>
       <mat-card-content>
         <div class="motivational-container">
           <h3>Keep on mind this amazing quote:</h3>
-          <h3>“The secret of getting ahead is <strong>getting started</strong>. The secret of getting started is <i>breaking your complex overwhelming tasks into small, manageable tasks,</i> and then <strong>starting on the first one</strong>. —Mark Twain”</h3>
+          <h3>
+            “The secret of getting ahead is <strong>getting started</strong>.
+            The secret of getting started is
+            <i
+              >breaking your complex overwhelming tasks into small, manageable
+              tasks,</i
+            >
+            and then <strong>starting on the first one</strong>."" —Mark Twain
+          </h3>
         </div>
       </mat-card-content>
-      
     </mat-card>
   </div>
 </ng-template>

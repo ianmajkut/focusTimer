@@ -3,23 +3,15 @@ import { CommonModule } from '@angular/common';
 
 import { PagesRoutingModule } from './pages-routing.module';
 import { MainComponent } from './main/main.component';
-import { LoginComponent } from './login/login.component';
-import { SigninComponent } from './signin/signin.component';
 import { MaterialModule } from '../material/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
 // Import ng-circle-progress
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { NgParticlesModule } from 'ng-particles';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TaskCardComponent } from './components/task-card/task-card.component';
 
 @NgModule({
-  declarations: [
-    MainComponent,
-    LoginComponent,
-    SigninComponent,
-    TaskCardComponent
-  ],
+  declarations: [MainComponent, TaskCardComponent],
   imports: [
     CommonModule,
     PagesRoutingModule,

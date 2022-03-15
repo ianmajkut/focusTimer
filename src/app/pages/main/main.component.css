@@ -19,24 +19,43 @@
   margin-left: 20px;
 }
 
-.btn {
+.btn-navbar {
   cursor: pointer;
-  border-radius: 50px;
+  border-radius: 40px;
   padding: 7px 16px;
-  background: none;
   line-height: 1.2;
   text-align: center;
+  font-weight: bold;
   text-decoration: none;
-  color: #000;
-  border-color: #000;
+  border: #ffffff;
 }
 
 .btn-log-in {
-  background: #f1faee;
+  background: #31587a;
+  color: #f1faee;
+}
+
+.btn-log-in:hover {
+  background: #1d3557;
+  animation: slide-top 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
 
 .btn-sign-up {
   background: #f1faee;
+}
+
+.btn-sign-up:hover {
+  background: #f1faee;
+  animation: slide-top 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+@keyframes slide-top {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-2px);
+  }
 }
 
 .header .container {
@@ -62,7 +81,7 @@
 
 .text h2 .underline {
   text-decoration: #457b9d solid underline;
-  text-decoration-skip: ink;
+  text-decoration-skip-ink: auto;
 }
 
 .header-img {
@@ -166,16 +185,15 @@ mat-form-field {
   display: flex;
   align-items: center;
   justify-content: space-around;
-  padding: 20px 0px ;
+  padding: 20px 0px;
   text-align: center;
 }
 
-
-.card {
+.card-empty {
   width: 50%;
 }
 
-.card h2 {
+.card-empty h2 {
   font-size: 2.5rem;
   font-weight: bold;
   line-height: 1.2;
@@ -188,7 +206,6 @@ mat-form-field {
   display: flex;
   flex-direction: column;
   align-items: center;
-  
 }
 
 .motivational-container h3 {
@@ -199,12 +216,31 @@ mat-form-field {
 .container-tasks {
   background: #d0edf5;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
+  padding-bottom: 20px;
+}
+
+.container-tasks h2 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  font-weight: bold;
+  line-height: 1.2;
+  color: #ffffff;
+}
+
+.card-tasks {
+  width: 50%;
+  padding: 20px;
+  background-color: #457b9d;
+  border-radius: 30px;
 }
 
 .tasks {
-  width: 70%;
+  width: 100%;
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
@@ -249,8 +285,17 @@ mat-form-field {
 }
 
 @media screen and (max-width: 1526px) {
-  .card h2 {
+  .card-empty h2 {
     display: flex;
     flex-direction: column;
+  }
+}
+
+@media screen and (max-width: 707px) {
+  .container-tasks h2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
   }
 }
