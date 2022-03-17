@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "focustimer-5ca7b": {
+      "hosting": {
+        "focusTimer": [
+          "focustimer-5ca7b"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "focustimer-5ca7b"
+  }
+}

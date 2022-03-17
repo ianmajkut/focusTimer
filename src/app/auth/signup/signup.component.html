@@ -1,29 +1,94 @@
-
-
 <div class="container-flex">
   <div class="signup-container">
     <h1>Sign Up</h1>
-    <form class="form">
+    <form class="form" [formGroup]="myForm">
       <mat-form-field appearance="outline">
         <mat-label>Fullname</mat-label>
-        <input matInput placeholder="Write your name & lastname" type="text" />
+        <input
+          matInput
+          placeholder="Write your name & lastname"
+          type="text"
+          formControlName="fullname"
+        />
+        <mat-error
+          *ngIf="myForm.controls['fullname'].errors?.['required'] && myForm.controls['fullname'].touched"
+        >
+          Your fullname is required
+        </mat-error>
+        <mat-error
+          *ngIf="myForm.controls['fullname'].errors?.['minlength'] && myForm.controls['fullname'].touched"
+        >
+          Your fullname is too short
+        </mat-error>
       </mat-form-field>
       <mat-form-field appearance="outline">
         <mat-label>Email</mat-label>
-        <input matInput placeholder="Write your email" type="email" />
+        <input
+          matInput
+          placeholder="Write your email"
+          type="email"
+          formControlName="email"
+        />
+        <mat-error
+          *ngIf="myForm.controls['email'].errors?.['required'] && myForm.controls['email'].touched"
+        >
+          The email is required
+        </mat-error>
+        <mat-error
+          *ngIf="myForm.controls['email'].errors?.['pattern'] && myForm.controls['email'].touched"
+        >
+          Invalid email pattern
+        </mat-error>
       </mat-form-field>
       <mat-form-field appearance="outline" style="margin-bottom: 15px">
         <mat-label>Username</mat-label>
-        <input matInput placeholder="Username" />
+        <input
+          matInput
+          placeholder="At least 6 characters long"
+          formControlName="username"
+        />
         <mat-hint> The username must be at least 6 characters long </mat-hint>
+        <mat-error
+          *ngIf="myForm.controls['username'].errors?.['required'] && myForm.controls['username'].touched"
+        >
+          The username is required
+        </mat-error>
+        <mat-error
+          *ngIf="myForm.controls['username'].errors?.['minlength'] && myForm.controls['username'].touched"
+        >
+          The username is too short
+        </mat-error>
+        <mat-hint *ngIf="username?.pending">
+          <span>Checking availability of {{ username?.value }}</span>
+        </mat-hint>
       </mat-form-field>
       <mat-form-field appearance="outline" style="margin-bottom: 15px">
         <mat-label>Password</mat-label>
-        <input matInput placeholder="Password" />
+        <input
+          matInput
+          placeholder="At least 6 characters long"
+          formControlName="password"
+        />
         <mat-hint> The Password must be at least 6 characters long </mat-hint>
+        <mat-error
+          *ngIf="myForm.controls['password'].errors?.['required'] && myForm.controls['password'].touched"
+        >
+          The password is required
+        </mat-error>
+        <mat-error
+          *ngIf="myForm.controls['password'].errors?.['minlength'] && myForm.controls['password'].touched"
+        >
+          The password is too short
+        </mat-error>
       </mat-form-field>
     </form>
-    <button class="create-account-btn">Create Account</button>
+    <button
+      class="create-account-btn"
+      [disabled]="myForm.invalid"
+      (click)="signup()"
+    >
+      Create Account
+    </button>
   </div>
   <div class="img-container">
     <img src="../../../assets/signupImg.svg" alt="" />

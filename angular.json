@@ -101,6 +101,16 @@
           "options": {
             "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "focusTimer:build:production",
+            "firebaseProject": "focustimer-5ca7b",
+            "firebaseHostingSite": "focustimer-5ca7b"
+          }
         }
       }
     }
