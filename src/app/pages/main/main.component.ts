@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ThemePalette } from '@angular/material/core';
 import { ProgressSpinnerMode } from '@angular/material/progress-spinner';
@@ -7,13 +7,14 @@ import { interval, Observable, Subscription, timer } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { Task } from '../../interfaces/interface';
 import { ISourceOptions } from 'tsparticles';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.css']
 })
-export class MainComponent {
+export class MainComponent implements AfterViewInit {
   confettiHide: boolean = true;
 
   //Stle for Conffeti
@@ -180,9 +181,34 @@ export class MainComponent {
     description: [,]
   });
 
-  constructor(private formBuilder: FormBuilder, private toastr: ToastrService) {
+  //Auth
+  public isLogged!: boolean;
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private toastr: ToastrService,
+    private auth: AngularFireAuth
+  ) {
     this.completedTasks =
       JSON.parse(localStorage.getItem('completedTasks')!) || [];
+  }
+
+  ngAfterViewInit(): void {
+    this.getUserState();
+  }
+
+  async getUserState() {
+    await this.auth.authState.subscribe((user) => {
+      if (user?.email) {
+        this.isLogged = true;
+      } else {
+        this.isLogged = false;
+      }
+    });
+  }
+
+  logout() {
+    this.auth.signOut();
   }
 
   play() {

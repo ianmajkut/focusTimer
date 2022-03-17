@@ -1,9 +1,12 @@
 <div class="navbar">
   <div class="logo">Focus Timer</div>
-  <div class="right-navbar">
-    <button class="btn-navbar btn-log-in" routerLink="/auth">Log In</button>
-    <button class="btn-navbar btn-sign-up" routerLink="/auth/signup">
+  <div class="right-navbar" >
+    <button *ngIf="!isLogged" class="btn-navbar btn-log-in" routerLink="/auth">Log In</button>
+    <button *ngIf="!isLogged" class="btn-navbar btn-sign-up" routerLink="/auth/signup">
       Sign Up
+    </button>
+    <button *ngIf="isLogged" class="btn-navbar btn-log-out" (click)="logout()" >
+      Log Out
     </button>
   </div>
 </div>
@@ -182,9 +185,9 @@
 </div>
 <div
   class="container-tasks"
-  *ngIf="completedTasks && completedTasks.length > 0; else emptyTask"
+  *ngIf="isLogged === true"
 >
-  <mat-card class="card-tasks">
+  <mat-card class="card-tasks" *ngIf="completedTasks && completedTasks.length > 0; else emptyTask">
     <mat-card-title>
       <h2>
         Completed Tasks
@@ -204,7 +207,26 @@
     </mat-card-content>
   </mat-card>
 </div>
-<ng-template #emptyTask>
+
+<div *ngIf="!isLogged" class="container-noLogged">
+  <mat-card class="card-noLogged">
+    <mat-card-title>
+      <h2>
+        You are not logged in
+        <img
+          src="https://img.icons8.com/stickers/45/000000/--broken-heart.png"
+        />
+      </h2>
+    </mat-card-title>
+    <mat-card-content>
+      <h3>
+        Please, <a routerLink="/login">login</a> to see your tasks
+      </h3>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<ng-template #emptyTask >
   <div class="empty-task-container">
     <mat-card class="card-empty">
       <mat-card-title>
