@@ -70,7 +70,7 @@ export class SignupComponent {
       {{ data.errMessage }}
     </div>
     <div mat-dialog-actions>
-      <button mat-falt-button mat-dialog-close color="warn">Close</button>
+      <button mat-flat-button mat-dialog-close color="warn">Close</button>
     </div>
   `
 })

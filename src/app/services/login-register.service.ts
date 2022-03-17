@@ -50,4 +50,12 @@ export class LoginRegisterService {
       throw error;
     }
   }
+
+  async login(email: string, password: string) {
+    try {
+      return await this.auth.signInWithEmailAndPassword(email, password);
+    } catch (error) {
+      throw error;
+    }
+  }
 }

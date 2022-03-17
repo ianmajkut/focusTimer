@@ -1,0 +1,143 @@
+.container-flex {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 50%;
+}
+
+.login-container h1 {
+  font-weight: bold;
+  font-size: 2.5rem;
+  padding-bottom: 20px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-btn {
+  width: 100%;
+  max-width: 260.48px;
+  cursor: pointer;
+  border: none;
+  margin-top: 30px;
+  padding: 15px;
+  background: #6c63ff;
+  border-radius: 40px;
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 1.3rem;
+}
+
+.login-btn:hover {
+  background: #433f83;
+  animation: slide-top 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+.login-btn:disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+@keyframes slide-top {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-10px);
+  }
+}
+
+.google-btn {
+  
+  margin-top: 20px;
+  border-radius: 30px;
+  background: #fefffe;
+  border: #dddee2 1px solid;
+  cursor: pointer;
+}
+
+.container-google {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.google-btn:hover {
+          animation: slide-top 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+.google-icon {
+  padding: 5px 0;
+  display: inline-block;
+  vertical-align: middle;
+  width: 80%;
+  max-width: 42px;
+  max-height: 42px;
+}
+
+span.buttonText {
+  display: inline-block;
+  vertical-align: middle;
+  padding-left: 42px;
+  padding-right: 42px;
+  font-size: 0.875rem;
+  font-weight: bold;
+  /* Use the Roboto font that is loaded in the <head> */
+  font-family: 'Roboto', sans-serif;
+}
+
+.signup {
+          display: flex;
+          align-items: center;
+          text-align: center;
+          margin-top: 40px;
+}
+
+.signup > p > a {
+          color: inherit;
+          text-decoration: none;
+          cursor: pointer;
+}
+
+.img-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  height: 100%;
+  width: 50%;
+}
+
+.img-container img {
+  object-fit: cover;
+}
+
+@media screen and (max-width: 750px) {
+          .container-flex {
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: space-between;
+          }
+
+          .img-container {
+                    display: none
+          }
+
+          .login-container {
+                    margin: 40px 0px;
+          }
+}

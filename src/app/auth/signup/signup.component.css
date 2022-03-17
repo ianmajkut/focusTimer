@@ -78,6 +78,10 @@
     justify-content: space-between;
   }
 
+  .img-container {
+    display: none;
+  }
+
   .signup-container {
     margin: 40px 0px;
   }
