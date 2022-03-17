@@ -57,6 +57,11 @@
   animation: slide-top 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
 
+.create-account-btn:disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
 @keyframes slide-top {
   0% {
     transform: translateY(0);

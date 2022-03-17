@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoginRegisterService } from 'src/app/services/login-register.service';
 import { Router } from '@angular/router';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 export interface User {
   fullname: string;
@@ -18,10 +19,12 @@ export class SignupComponent {
   constructor(
     private fb: FormBuilder,
     private login_register: LoginRegisterService,
-    private router: Router
+    private router: Router,
+    public dialog: MatDialog
   ) {}
 
   emailPattern: string = '^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$';
+  errMessage: string = '';
 
   myForm: FormGroup = this.fb.group({
     fullname: ['', [Validators.required, Validators.minLength(5)]],
@@ -42,9 +45,35 @@ export class SignupComponent {
     const { fullname, email, username } = this.myForm.value;
     const user: User = { fullname, email, username };
 
-    this.login_register.register(user, this.myForm.value.password).then(() => {
-      this.myForm.reset();
-      this.router.navigateByUrl('/auth/verification');
-    });
+    this.login_register.register(user, this.myForm.value.password).then(
+      () => {
+        this.myForm.reset();
+        this.router.navigateByUrl('/auth/verification');
+      },
+      (error) => {
+        this.errMessage = error.message;
+        this.dialog.open(SignupErrorDialogComponent, {
+          data: {
+            errMessage: this.errMessage
+          }
+        });
+      }
+    );
   }
+}
+
+@Component({
+  selector: 'app-signup-error-dialog',
+  template: `
+    <h1 mat-dialog-title>Error</h1>
+    <div mat-dialog-content>
+      {{ data.errMessage }}
+    </div>
+    <div mat-dialog-actions>
+      <button mat-falt-button mat-dialog-close color="warn">Close</button>
+    </div>
+  `
+})
+export class SignupErrorDialogComponent {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: { errMessage: string }) {}
 }

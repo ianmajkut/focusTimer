@@ -3,7 +3,10 @@ import { CommonModule } from '@angular/common';
 
 import { AuthRoutingModule } from './auth-routing.module';
 import { LoginComponent } from './login/login.component';
-import { SignupComponent } from './signup/signup.component';
+import {
+  SignupComponent,
+  SignupErrorDialogComponent
+} from './signup/signup.component';
 import { AuthComponent } from './auth/auth.component';
 import { MaterialModule } from '../material/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -14,7 +17,8 @@ import { VerificationComponent } from './verification/verification.component';
     LoginComponent,
     AuthComponent,
     SignupComponent,
-    VerificationComponent
+    VerificationComponent,
+    SignupErrorDialogComponent
   ],
   imports: [
     CommonModule,
