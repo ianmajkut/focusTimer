@@ -47,7 +47,6 @@
           placeholder="At least 6 characters long"
           formControlName="username"
         />
-        <mat-hint> The username must be at least 6 characters long </mat-hint>
         <mat-error
           *ngIf="myForm.controls['username'].errors?.['required'] && myForm.controls['username'].touched"
         >
@@ -56,11 +55,19 @@
         <mat-error
           *ngIf="myForm.controls['username'].errors?.['minlength'] && myForm.controls['username'].touched"
         >
-          The username is too short
+        The username must be at least 6 characters long
+        </mat-error>
+        <mat-error
+          *ngIf="myForm.controls['username'].errors?.['usernameNoAvailable']"
+        >
+          Username already exists
         </mat-error>
         <mat-hint *ngIf="username?.pending">
           <span>Checking availability of {{ username?.value }}</span>
         </mat-hint>
+        <mat-icon *ngIf="username?.valid" matSuffix>
+          check_circle
+        </mat-icon>
       </mat-form-field>
       <mat-form-field appearance="outline" style="margin-bottom: 15px">
         <mat-label>Password</mat-label>
@@ -69,7 +76,6 @@
           placeholder="At least 6 characters long"
           formControlName="password"
         />
-        <mat-hint> The Password must be at least 6 characters long </mat-hint>
         <mat-error
           *ngIf="myForm.controls['password'].errors?.['required'] && myForm.controls['password'].touched"
         >
@@ -78,8 +84,11 @@
         <mat-error
           *ngIf="myForm.controls['password'].errors?.['minlength'] && myForm.controls['password'].touched"
         >
-          The password is too short
+        The Password must be at least 6 characters long
         </mat-error>
+        <mat-icon *ngIf="myForm.controls['password'].valid" matSuffix>
+          check_circle
+        </mat-icon>
       </mat-form-field>
     </form>
     <button
