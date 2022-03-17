@@ -2,7 +2,7 @@
   <div class="signup-container">
     <h1>Sign Up</h1>
     <form class="form" [formGroup]="myForm">
-      <mat-form-field appearance="outline">
+      <mat-form-field appearance="outline" style="margin-bottom: 6px">
         <mat-label>Fullname</mat-label>
         <input
           matInput
@@ -21,7 +21,7 @@
           Your fullname is too short
         </mat-error>
       </mat-form-field>
-      <mat-form-field appearance="outline">
+      <mat-form-field appearance="outline" style="margin-bottom: 6px">
         <mat-label>Email</mat-label>
         <input
           matInput
@@ -40,7 +40,7 @@
           Invalid email pattern
         </mat-error>
       </mat-form-field>
-      <mat-form-field appearance="outline" style="margin-bottom: 15px">
+      <mat-form-field appearance="outline" style="margin-bottom: 6px">
         <mat-label>Username</mat-label>
         <input
           matInput
@@ -55,7 +55,7 @@
         <mat-error
           *ngIf="myForm.controls['username'].errors?.['minlength'] && myForm.controls['username'].touched"
         >
-        The username must be at least 6 characters long
+          Username must be at least 6 characters long
         </mat-error>
         <mat-error
           *ngIf="myForm.controls['username'].errors?.['usernameNoAvailable']"
@@ -65,11 +65,10 @@
         <mat-hint *ngIf="username?.pending">
           <span>Checking availability of {{ username?.value }}</span>
         </mat-hint>
-        <mat-icon *ngIf="username?.valid" matSuffix>
-          check_circle
-        </mat-icon>
+        <mat-icon *ngIf="username?.valid" matSuffix> check_circle </mat-icon>
+        <mat-icon *ngIf="username?.invalid" matSuffix> cancel </mat-icon>
       </mat-form-field>
-      <mat-form-field appearance="outline" style="margin-bottom: 15px">
+      <mat-form-field appearance="outline">
         <mat-label>Password</mat-label>
         <input
           matInput
@@ -84,10 +83,13 @@
         <mat-error
           *ngIf="myForm.controls['password'].errors?.['minlength'] && myForm.controls['password'].touched"
         >
-        The Password must be at least 6 characters long
+          Password must be at least 6 characters long
         </mat-error>
         <mat-icon *ngIf="myForm.controls['password'].valid" matSuffix>
           check_circle
+        </mat-icon>
+        <mat-icon *ngIf="myForm.controls['password'].invalid" matSuffix>
+          cancel
         </mat-icon>
       </mat-form-field>
     </form>
@@ -100,6 +102,6 @@
     </button>
   </div>
   <div class="img-container">
-    <img src="../../../assets/signupImg.svg" alt="" />
+    <img src="../../../assets/signupImg.svg" alt="signupImg" />
   </div>
 </div>

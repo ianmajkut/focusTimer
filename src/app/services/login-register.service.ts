@@ -25,4 +25,29 @@ export class LoginRegisterService {
         map((arr) => (arr.length ? { usernameNoAvailable: true } : null))
       );
   }
+
+  async register(user: any, password: string) {
+    try {
+      //Take the mail and password of the user and create a new user in firebase
+      await this.auth.createUserWithEmailAndPassword(user.email, password);
+      //Call method sendVerificationEmail() to send a verification email to the user
+      await this.sendVerificationEmail();
+      //Take the user and add it to the database collection 'users'
+      return await this.firestore.collection('users').doc().set({
+        fullname: user.fullname,
+        email: user.email,
+        username: user.username
+      });
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async sendVerificationEmail() {
+    try {
+      return await (await this.auth.currentUser)?.sendEmailVerification();
+    } catch (error) {
+      throw error;
+    }
+  }
 }

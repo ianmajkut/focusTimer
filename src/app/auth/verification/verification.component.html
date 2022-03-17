@@ -1,0 +1,41 @@
+<div class="container-flex" *ngIf="user | async as user">
+  <div class="verification-container">
+    <mat-card class="card" *ngIf="!isEmailVerified">
+      <mat-card-title> Verification Email sent </mat-card-title>
+      <mat-card-content>
+        <p>
+          We have sent a confirmation email to
+          <strong>{{ user?.email }}</strong>
+        </p>
+        <p>
+          Please check your email and click on the link to verify your email
+          address.
+        </p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" (click)="goLogin()">
+          Login now
+        </button>
+      </mat-card-actions>
+    </mat-card>
+    <mat-card class="card" *ngIf="isEmailVerified">
+      <mat-card-title> Your Email is already verified </mat-card-title>
+      <mat-card-content>
+        <p>
+          We have sent a confirmation email to
+          <strong>{{ user?.email }}</strong> and you have verified your email
+          address.
+        </p>
+        <p>You can now login to your account.</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" (click)="goLogin()">
+          Login now
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+  <div class="img-container">
+    <img src="../../../assets/authenticationImg.svg" alt="authImg" />
+  </div>
+</div>

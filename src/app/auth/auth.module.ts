@@ -7,9 +7,15 @@ import { SignupComponent } from './signup/signup.component';
 import { AuthComponent } from './auth/auth.component';
 import { MaterialModule } from '../material/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { VerificationComponent } from './verification/verification.component';
 
 @NgModule({
-  declarations: [LoginComponent, AuthComponent, SignupComponent],
+  declarations: [
+    LoginComponent,
+    AuthComponent,
+    SignupComponent,
+    VerificationComponent
+  ],
   imports: [
     CommonModule,
     AuthRoutingModule,
