@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { MatDialog } from '@angular/material/dialog';
+import { ToastrService } from 'ngx-toastr';
+import { isThisTypeNode } from 'typescript';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +11,8 @@ import { MatDialog } from '@angular/material/dialog';
 export class TaskService {
   constructor(
     private firestore: AngularFirestore,
-    public auth: AngularFireAuth
+    public auth: AngularFireAuth,
+    private toastr: ToastrService
   ) {}
 
   async saveTaskFirestore(task: any, userId: string) {
@@ -42,5 +45,14 @@ export class TaskService {
           doc.ref.delete();
         });
       });
+    this.toastr.error('You have deleted a task!', 'Alert', {
+      timeOut: 5000,
+      extendedTimeOut: 3000,
+      disableTimeOut: false,
+      closeButton: true,
+      positionClass: 'toast-top-center',
+      progressBar: true,
+      progressAnimation: 'decreasing'
+    });
   }
 }

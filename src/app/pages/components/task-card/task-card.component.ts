@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { TaskService } from 'src/app/services/task.service';
 
 @Component({
@@ -10,9 +10,16 @@ export class TaskCardComponent {
   @Input() taskInput!: any;
   @Input() indexTask!: number;
   @Input() uidUser!: string;
+  //Output that send the id of the task to main.component.ts
+  @Output() repeatTaskEvent = new EventEmitter<string>();
   constructor(private taskService: TaskService) {}
 
   eliminateTask() {
     this.taskService.deleteTask(this.taskInput.id, this.uidUser);
+  }
+
+  repeatTask() {
+    //Emit the output
+    this.repeatTaskEvent.emit(this.taskInput.id);
   }
 }

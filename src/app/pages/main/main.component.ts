@@ -378,4 +378,17 @@ export class MainComponent implements AfterViewInit {
         this.completedTasks = tasks;
       });
   }
+
+  async patchTask(taskId: string) {
+    await this.firestore
+      .collection('tasks')
+      .doc(this.userUID)
+      .collection('tasksCompletedFromThisUser', (ref) =>
+        ref.where('id', '==', taskId)
+      )
+      .get()
+      .subscribe((res) => {
+        this.myForm.patchValue(res.docs[0].data());
+      });
+  }
 }

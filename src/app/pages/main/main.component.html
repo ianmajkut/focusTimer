@@ -204,11 +204,17 @@
     </mat-card-title>
     <mat-card-content>
       <div class="tasks">
+        <!--- 
+        Input and Output between the task-card.component
+        When the event repeatTaskEvent is emitted, the main.component 
+        will call the metho patchTask and pass the task to be patched
+        -->
         <app-task-card
           *ngFor="let task of completedTasks; let i = index"
           [taskInput]="task"
           [indexTask]="i"
           [uidUser]="userUID"
+          (repeatTaskEvent)="patchTask($event)"
         ></app-task-card>
       </div>
     </mat-card-content>
@@ -252,7 +258,7 @@
               >breaking your complex overwhelming tasks into small, manageable
               tasks,</i
             >
-            and then <strong>starting on the first one</strong>."" —Mark Twain
+            and then <strong>starting on the first one</strong>." —Mark Twain
           </h3>
         </div>
       </mat-card-content>
