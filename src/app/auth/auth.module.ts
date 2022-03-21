@@ -11,6 +11,7 @@ import { AuthComponent } from './auth/auth.component';
 import { MaterialModule } from '../material/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { VerificationComponent } from './verification/verification.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { VerificationComponent } from './verification/verification.component';
     CommonModule,
     AuthRoutingModule,
     MaterialModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxSpinnerModule
   ]
 })
 export class AuthModule {}

@@ -1,8 +1,9 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoginRegisterService } from 'src/app/services/login-register.service';
 import { Router } from '@angular/router';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 export interface User {
   fullname: string;
@@ -15,13 +16,22 @@ export interface User {
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.css']
 })
-export class SignupComponent {
+export class SignupComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private login_register: LoginRegisterService,
     private router: Router,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private spinner: NgxSpinnerService
   ) {}
+
+  ngOnInit() {
+    this.spinner.show();
+
+    setTimeout(() => {
+      this.spinner.hide();
+    }, 2000);
+  }
 
   emailPattern: string = '^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$';
   errMessage: string = '';
@@ -42,15 +52,18 @@ export class SignupComponent {
   }
 
   signup() {
+    this.spinner.show();
     const { fullname, email, username } = this.myForm.value;
     const user: User = { fullname, email, username };
 
     this.login_register.register(user, this.myForm.value.password).then(
       () => {
         this.myForm.reset();
+        this.spinner.hide();
         this.router.navigateByUrl('/auth/verification');
       },
       (error) => {
+        this.spinner.hide();
         this.errMessage = error.message;
         this.dialog.open(SignupErrorDialogComponent, {
           data: {

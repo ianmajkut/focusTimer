@@ -10,6 +10,7 @@ import { ISourceOptions } from 'tsparticles';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { TaskService } from 'src/app/services/task.service';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-main',
@@ -192,7 +193,8 @@ export class MainComponent implements AfterViewInit {
     private toastr: ToastrService,
     private auth: AngularFireAuth,
     private taskService: TaskService,
-    private firestore: AngularFirestore
+    private firestore: AngularFirestore,
+    private spinner: NgxSpinnerService
   ) {
     // this.completedTasks =
     //   JSON.parse(localStorage.getItem('completedTasks')!) || [];
@@ -203,6 +205,7 @@ export class MainComponent implements AfterViewInit {
   }
 
   async getUserState() {
+    this.spinner.show();
     await this.auth.authState.subscribe((user) => {
       if (user?.email) {
         this.userUID = user.uid;
@@ -210,12 +213,17 @@ export class MainComponent implements AfterViewInit {
         this.getTasks();
       } else {
         this.isLogged = false;
+        this.spinner.hide();
       }
     });
   }
 
   logout() {
-    this.auth.signOut();
+    this.spinner.show();
+    setTimeout(() => {
+      this.auth.signOut();
+      this.spinner.hide();
+    }, 3000);
   }
 
   play() {
@@ -376,10 +384,12 @@ export class MainComponent implements AfterViewInit {
       .valueChanges()
       .subscribe((tasks) => {
         this.completedTasks = tasks;
+        this.spinner.hide();
       });
   }
 
   async patchTask(taskId: string) {
+    this.spinner.show();
     await this.firestore
       .collection('tasks')
       .doc(this.userUID)
@@ -389,6 +399,7 @@ export class MainComponent implements AfterViewInit {
       .get()
       .subscribe((res) => {
         this.myForm.patchValue(res.docs[0].data());
+        this.spinner.hide();
       });
   }
 }

@@ -10,6 +10,8 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { environment } from 'src/environments/environment';
+//Spinner
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   declarations: [AppComponent],
@@ -19,7 +21,8 @@ import { environment } from 'src/environments/environment';
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
     AngularFireModule.initializeApp(environment?.firebase),
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    NgxSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

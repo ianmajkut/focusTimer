@@ -9,6 +9,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { NgParticlesModule } from 'ng-particles';
 import { TaskCardComponent } from './components/task-card/task-card.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   declarations: [MainComponent, TaskCardComponent],
@@ -36,7 +37,8 @@ import { TaskCardComponent } from './components/task-card/task-card.component';
       startFromZero: false,
       titleFontSize: '10'
     }),
-    NgParticlesModule
+    NgParticlesModule,
+    NgxSpinnerModule
   ]
 })
 export class PagesModule {}
