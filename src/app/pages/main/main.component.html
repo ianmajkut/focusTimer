@@ -208,6 +208,7 @@
           *ngFor="let task of completedTasks; let i = index"
           [taskInput]="task"
           [indexTask]="i"
+          [uidUser]="userUID"
         ></app-task-card>
       </div>
     </mat-card-content>

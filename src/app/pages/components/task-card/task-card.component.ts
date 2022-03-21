@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { TaskService } from 'src/app/services/task.service';
 
 @Component({
   selector: 'app-task-card',
@@ -8,9 +9,10 @@ import { Component, Input } from '@angular/core';
 export class TaskCardComponent {
   @Input() taskInput!: any;
   @Input() indexTask!: number;
-  constructor() {}
+  @Input() uidUser!: string;
+  constructor(private taskService: TaskService) {}
 
   eliminateTask() {
-    console.log(this.indexTask);
+    this.taskService.deleteTask(this.taskInput.id, this.uidUser);
   }
 }

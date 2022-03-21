@@ -374,8 +374,8 @@ export class MainComponent implements AfterViewInit {
       .doc(this.userUID)
       .collection('tasksCompletedFromThisUser')
       .valueChanges()
-      .subscribe((taks) => {
-        this.completedTasks = taks;
+      .subscribe((tasks) => {
+        this.completedTasks = tasks;
       });
   }
 }
