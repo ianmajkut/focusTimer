@@ -292,6 +292,9 @@ export class MainComponent implements AfterViewInit {
             (this.currentWorkingTime * 100) / (this.workingTimeForSpinner * 60);
           //console.log(this.percent);
           //console.log(`Work timing ${this.currentWorkingTime} sec`);
+          if (this.currentWorkingTime === 2) {
+            this.playAudio();
+          }
           if (this.currentWorkingTime == 0) {
             const { restTime } = this.myForm.value;
             this.restingTimeForSpinner = restTime;
@@ -327,6 +330,9 @@ export class MainComponent implements AfterViewInit {
           this.percent =
             (this.currentRestingTime * 100) / (this.restingTimeForSpinner * 60);
           //console.log(`Rest timing ${this.currentRestingTime} sec`);
+          if (this.currentRestingTime === 2) {
+            this.playAudio();
+          }
           if (this.currentRestingTime == 0) {
             this.workingTimer(this.workingTimeForSpinner * 60, rounds);
           }
@@ -401,5 +407,12 @@ export class MainComponent implements AfterViewInit {
         this.myForm.patchValue(res.docs[0].data());
         this.spinner.hide();
       });
+  }
+
+  playAudio() {
+    let audio = new Audio();
+    audio.src = '../../../assets/countdown.wav';
+    audio.load();
+    audio.play();
   }
 }
