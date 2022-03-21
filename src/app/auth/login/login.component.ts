@@ -53,6 +53,10 @@ export class LoginComponent {
       const user = await this.auth.signInWithPopup(
         new firebase.auth.GoogleAuthProvider()
       );
+      //Check if the user is already registered in the database
+      if (user.additionalUserInfo?.isNewUser) {
+        await this.login_register.googleSignInRegister(user);
+      }
       if (user && user.user?.emailVerified) {
         this.router.navigateByUrl('/home');
       }

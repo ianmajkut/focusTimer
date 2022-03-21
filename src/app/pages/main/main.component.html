@@ -1,11 +1,17 @@
 <div class="navbar">
   <div class="logo">Focus Timer</div>
-  <div class="right-navbar" >
-    <button *ngIf="!isLogged" class="btn-navbar btn-log-in" routerLink="/auth">Log In</button>
-    <button *ngIf="!isLogged" class="btn-navbar btn-sign-up" routerLink="/auth/signup">
+  <div class="right-navbar">
+    <button *ngIf="!isLogged" class="btn-navbar btn-log-in" routerLink="/auth">
+      Log In
+    </button>
+    <button
+      *ngIf="!isLogged"
+      class="btn-navbar btn-sign-up"
+      routerLink="/auth/signup"
+    >
       Sign Up
     </button>
-    <button *ngIf="isLogged" class="btn-navbar btn-log-out" (click)="logout()" >
+    <button *ngIf="isLogged" class="btn-navbar btn-log-out" (click)="logout()">
       Log Out
     </button>
   </div>
@@ -183,11 +189,11 @@
     </section>
   </div>
 </div>
-<div
-  class="container-tasks"
-  *ngIf="isLogged === true"
->
-  <mat-card class="card-tasks" *ngIf="completedTasks && completedTasks.length > 0; else emptyTask">
+<div class="container-tasks" *ngIf="isLogged === true">
+  <mat-card
+    class="card-tasks"
+    *ngIf="completedTasks && completedTasks.length > 0; else emptyTask"
+  >
     <mat-card-title>
       <h2>
         Completed Tasks
@@ -219,14 +225,12 @@
       </h2>
     </mat-card-title>
     <mat-card-content>
-      <h3>
-        Please, <a routerLink="/login">login</a> to see your tasks
-      </h3>
+      <h3>Please, <a routerLink="/auth/login">login</a> to see your tasks</h3>
     </mat-card-content>
   </mat-card>
 </div>
 
-<ng-template #emptyTask >
+<ng-template #emptyTask>
   <div class="empty-task-container">
     <mat-card class="card-empty">
       <mat-card-title>

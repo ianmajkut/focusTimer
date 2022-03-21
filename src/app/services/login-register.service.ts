@@ -30,13 +30,16 @@ export class LoginRegisterService {
     try {
       //Take the mail and password of the user and create a new user in firebase
       await this.auth.createUserWithEmailAndPassword(user.email, password);
+
+      let tempId = this.firestore.createId();
       //Call method sendVerificationEmail() to send a verification email to the user
       await this.sendVerificationEmail();
       //Take the user and add it to the database collection 'users'
-      return await this.firestore.collection('users').doc().set({
+      return await this.firestore.collection('users').doc(tempId).set({
         fullname: user.fullname,
         email: user.email,
-        username: user.username
+        username: user.username,
+        uid: tempId
       });
     } catch (error) {
       throw error;
@@ -54,6 +57,19 @@ export class LoginRegisterService {
   async login(email: string, password: string) {
     try {
       return await this.auth.signInWithEmailAndPassword(email, password);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  //Method to create a new user in firestore with google
+  async googleSignInRegister(user: any) {
+    try {
+      return await this.firestore.collection('users').doc(user.user?.uid).set({
+        fullname: user.user?.displayName,
+        email: user.user?.email,
+        uid: user.user?.uid
+      });
     } catch (error) {
       throw error;
     }

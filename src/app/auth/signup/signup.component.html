@@ -74,6 +74,7 @@
           matInput
           placeholder="At least 6 characters long"
           formControlName="password"
+          type="password"
         />
         <mat-error
           *ngIf="myForm.controls['password'].errors?.['required'] && myForm.controls['password'].touched"
