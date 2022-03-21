@@ -8,6 +8,8 @@ import { take } from 'rxjs/operators';
 import { Task } from '../../interfaces/interface';
 import { ISourceOptions } from 'tsparticles';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { TaskService } from 'src/app/services/task.service';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 @Component({
   selector: 'app-main',
@@ -155,7 +157,7 @@ export class MainComponent implements AfterViewInit {
   creationOfTask: boolean = true;
   pausedState: boolean = false;
   resumeTask: boolean = false;
-  completedTasks: Task[] = [];
+  completedTasks: any[] = [];
 
   //Timer
   timerInterval = interval(1000);
@@ -183,14 +185,17 @@ export class MainComponent implements AfterViewInit {
 
   //Auth
   public isLogged!: boolean;
+  userUID!: string;
 
   constructor(
     private formBuilder: FormBuilder,
     private toastr: ToastrService,
-    private auth: AngularFireAuth
+    private auth: AngularFireAuth,
+    private taskService: TaskService,
+    private firestore: AngularFirestore
   ) {
-    this.completedTasks =
-      JSON.parse(localStorage.getItem('completedTasks')!) || [];
+    // this.completedTasks =
+    //   JSON.parse(localStorage.getItem('completedTasks')!) || [];
   }
 
   ngAfterViewInit(): void {
@@ -200,7 +205,9 @@ export class MainComponent implements AfterViewInit {
   async getUserState() {
     await this.auth.authState.subscribe((user) => {
       if (user?.email) {
+        this.userUID = user.uid;
         this.isLogged = true;
+        this.getTasks();
       } else {
         this.isLogged = false;
       }
@@ -326,8 +333,9 @@ export class MainComponent implements AfterViewInit {
     this.restingSubs.unsubscribe();
 
     //Form
-    this.completedTasks.push(this.myForm.value);
-    this.saveLocalStorage(this.completedTasks);
+    //this.completedTasks.push(this.myForm.value);
+    let task: Task = this.myForm.value;
+    this.saveTask(task);
 
     this.myForm.reset();
     this.launchConfetti();
@@ -355,7 +363,19 @@ export class MainComponent implements AfterViewInit {
     }, 5000);
   }
 
-  saveLocalStorage(completedTasks: Task[]) {
-    localStorage.setItem('completedTasks', JSON.stringify(completedTasks));
+  saveTask(task: Task) {
+    //localStorage.setItem('completedTasks', JSON.stringify(completedTasks));
+    this.taskService.saveTaskFirestore(task, this.userUID);
+  }
+
+  async getTasks() {
+    await this.firestore
+      .collection('tasks')
+      .doc(this.userUID)
+      .collection('tasksCompletedFromThisUser')
+      .valueChanges()
+      .subscribe((taks) => {
+        this.completedTasks = taks;
+      });
   }
 }

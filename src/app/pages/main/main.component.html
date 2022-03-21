@@ -195,7 +195,7 @@
     *ngIf="completedTasks && completedTasks.length > 0; else emptyTask"
   >
     <mat-card-title>
-      <h2>
+      <h2 style="color: #fff !important;">
         Completed Tasks
         <img
           src="https://img.icons8.com/stickers/45/000000/task-completed--v2.png"
@@ -225,7 +225,9 @@
       </h2>
     </mat-card-title>
     <mat-card-content>
-      <h3>Please, <a routerLink="/auth/login">login</a> to see your tasks</h3>
+      <h3>
+        Please, <a routerLink="/auth/login">login</a> first to start saving your tasks and see which ones you have completed. 
+      </h3>
     </mat-card-content>
   </mat-card>
 </div>

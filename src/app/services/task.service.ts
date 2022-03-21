@@ -10,4 +10,12 @@ export class TaskService {
     private firestore: AngularFirestore,
     public auth: AngularFireAuth
   ) {}
+
+  async saveTaskFirestore(task: any, userId: string) {
+    await this.firestore
+      .collection('tasks')
+      .doc(userId)
+      .collection('tasksCompletedFromThisUser')
+      .add(task);
+  }
 }
