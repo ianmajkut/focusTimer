@@ -10,12 +10,17 @@ export class TaskCardComponent {
   @Input() taskInput!: any;
   @Input() indexTask!: number;
   @Input() uidUser!: string;
+  @Input() currentLang!: string;
   //Output that send the id of the task to main.component.ts
   @Output() repeatTaskEvent = new EventEmitter<string>();
   constructor(private taskService: TaskService) {}
 
   eliminateTask() {
-    this.taskService.deleteTask(this.taskInput.id, this.uidUser);
+    this.taskService.deleteTask(
+      this.taskInput.id,
+      this.uidUser,
+      this.currentLang
+    );
   }
 
   repeatTask() {

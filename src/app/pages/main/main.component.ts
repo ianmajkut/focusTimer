@@ -11,6 +11,7 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { TaskService } from 'src/app/services/task.service';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-main',
@@ -147,9 +148,11 @@ export class MainComponent implements AfterViewInit {
     }
   };
 
+  lang: string = 'en-US';
   //Circle Spinner
   percent!: number;
-  title = 'Start a task';
+  title: string = 'Start a task';
+
   subtitle = '';
   //Colors Circle
   outerStrokeColor!: string;
@@ -171,6 +174,8 @@ export class MainComponent implements AfterViewInit {
   showPauseButton: boolean = false;
   showStopButton: boolean = false;
   roundsBlocks!: number;
+  resumeAmountBlocks!: number;
+  isLastRound: boolean = false;
   workingSubs!: Subscription;
   restingSubs!: Subscription;
 
@@ -188,16 +193,19 @@ export class MainComponent implements AfterViewInit {
   public isLogged!: boolean;
   userUID!: string;
 
+  audio: any = new Audio();
+
   constructor(
     private formBuilder: FormBuilder,
     private toastr: ToastrService,
     private auth: AngularFireAuth,
     private taskService: TaskService,
     private firestore: AngularFirestore,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private translateService: TranslateService
   ) {
-    // this.completedTasks =
-    //   JSON.parse(localStorage.getItem('completedTasks')!) || [];
+    this.audio.src = '../../../assets/countdown.wav';
+    this.audio.load();
   }
 
   ngAfterViewInit(): void {
@@ -242,17 +250,23 @@ export class MainComponent implements AfterViewInit {
     if (this.pausedState) {
       this.pausedState = false;
       this.resumeTask = true;
-      this.workingTimer(this.showingTime, this.roundsBlocks);
+      if (this.currentWorkingTime <= 2) {
+        this.audio.play();
+      }
+      this.workingTimer(this.showingTime, this.resumeAmountBlocks);
     }
   }
 
   pauseTask() {
+    this.audio.pause();
     this.workingSubs.unsubscribe();
     this.pausedState = true;
   }
 
   stopTask() {
     this.workingSubs.unsubscribe();
+    this.audio.pause();
+    this.audio.load();
     this.creationOfTask = true;
     this.myForm.reset();
     this.workingTimeForSpinner = 0;
@@ -269,11 +283,16 @@ export class MainComponent implements AfterViewInit {
     this.showStopButton = true;
     this.outerStrokeColor = '#4882c2';
     this.outerStrokeGradientStopColor = '#53a9ff';
-    if (rounds > 0) {
+    if (rounds > 0 || this.isLastRound === true) {
       this.typeOfBlock = 'Working Time Countdown:';
       //Cicle
-      this.title = 'Working Countdown:';
-      --rounds;
+      if (this.lang === 'en-US') {
+        this.title = 'Working Countdown:';
+      }
+      if (this.lang === 'es') {
+        this.title = 'Cuenta regr. trabajo ';
+      }
+      this.resumeAmountBlocks = rounds;
       //rounds = this.roundsBlocks;
       // this.color = 'warn';
       const timeWork = workTime;
@@ -293,9 +312,13 @@ export class MainComponent implements AfterViewInit {
           //console.log(this.percent);
           //console.log(`Work timing ${this.currentWorkingTime} sec`);
           if (this.currentWorkingTime === 2) {
-            this.playAudio();
+            this.audio.play();
           }
           if (this.currentWorkingTime == 0) {
+            --rounds;
+            if (rounds === 0) {
+              this.isLastRound = true;
+            }
             const { restTime } = this.myForm.value;
             this.restingTimeForSpinner = restTime;
             this.restTimer(this.restingTimeForSpinner * 60, rounds);
@@ -311,11 +334,16 @@ export class MainComponent implements AfterViewInit {
     this.showStopButton = false;
     this.outerStrokeColor = '#e63946';
     this.outerStrokeGradientStopColor = '#e63946';
-    if (rounds > 0) {
+    if (rounds > 0 || !this.isLastRound) {
       this.typeOfBlock = 'Resting Time Countdown:';
       // this.color = 'primary';
       //Circle
-      this.title = 'Resting Countdown:';
+      if (this.lang === 'en-US') {
+        this.title = 'Resting Countdown:';
+      }
+      if (this.lang === 'es') {
+        this.title = 'Cuenta regr. descanso ';
+      }
 
       const timeRest = restTime;
       this.restingSubs = this.timerInterval
@@ -331,7 +359,7 @@ export class MainComponent implements AfterViewInit {
             (this.currentRestingTime * 100) / (this.restingTimeForSpinner * 60);
           //console.log(`Rest timing ${this.currentRestingTime} sec`);
           if (this.currentRestingTime === 2) {
-            this.playAudio();
+            this.audio.play();
           }
           if (this.currentRestingTime == 0) {
             this.workingTimer(this.workingTimeForSpinner * 60, rounds);
@@ -340,7 +368,8 @@ export class MainComponent implements AfterViewInit {
       return this.restingSubs;
     }
     //Circle
-    this.title = 'Start a task';
+    this.isLastRound = false;
+    this.changeComponentLanguage();
     this.subtitle = '';
     this.creationOfTask = true;
     this.workingSubs.unsubscribe();
@@ -359,19 +388,37 @@ export class MainComponent implements AfterViewInit {
 
   launchConfetti() {
     this.confettiHide = false;
-    this.toastr.success(
-      'You are very productive! You have completed your task!',
-      'Congrats!',
-      {
-        timeOut: 5000,
-        extendedTimeOut: 3000,
-        disableTimeOut: false,
-        closeButton: true,
-        positionClass: 'toast-top-center',
-        progressBar: true,
-        progressAnimation: 'decreasing'
-      }
-    );
+    if (this.lang === 'en-US') {
+      this.toastr.success(
+        'You are very productive! You have completed your task!',
+        'Congrats!',
+        {
+          timeOut: 5000,
+          extendedTimeOut: 3000,
+          disableTimeOut: false,
+          closeButton: true,
+          positionClass: 'toast-top-center',
+          progressBar: true,
+          progressAnimation: 'decreasing'
+        }
+      );
+    }
+    if (this.lang === 'es') {
+      this.toastr.success(
+        'Eres muy productivo! Completaste tu tarea!',
+        'Felicidades!',
+        {
+          timeOut: 5000,
+          extendedTimeOut: 3000,
+          disableTimeOut: false,
+          closeButton: true,
+          positionClass: 'toast-top-center',
+          progressBar: true,
+          progressAnimation: 'decreasing'
+        }
+      );
+    }
+
     setTimeout(() => {
       this.confettiHide = true;
     }, 5000);
@@ -409,10 +456,18 @@ export class MainComponent implements AfterViewInit {
       });
   }
 
-  playAudio() {
-    let audio = new Audio();
-    audio.src = '../../../assets/countdown.wav';
-    audio.load();
-    audio.play();
+  public selectLanguage(event: any) {
+    this.translateService.use(event.target.value);
+    this.lang = event.target.value;
+    this.changeComponentLanguage();
+  }
+
+  changeComponentLanguage() {
+    if (this.lang === 'en-US') {
+      this.title = 'Start a task';
+    }
+    if (this.lang === 'es') {
+      this.title = 'Comenzar una tarea';
+    }
   }
 }

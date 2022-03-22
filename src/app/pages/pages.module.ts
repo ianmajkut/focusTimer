@@ -11,6 +11,14 @@ import { NgParticlesModule } from 'ng-particles';
 import { TaskCardComponent } from './components/task-card/task-card.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
+
 @NgModule({
   declarations: [MainComponent, TaskCardComponent],
   imports: [
@@ -38,7 +46,16 @@ import { NgxSpinnerModule } from 'ngx-spinner';
       titleFontSize: '10'
     }),
     NgParticlesModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    HttpClientModule,
+    TranslateModule.forRoot({
+      defaultLanguage: 'en-US',
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    })
   ]
 })
 export class PagesModule {}

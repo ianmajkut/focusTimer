@@ -32,7 +32,7 @@ export class TaskService {
       });
   }
 
-  async deleteTask(taskId: string, uidUser: string) {
+  async deleteTask(taskId: string, uidUser: string, currentLang: string) {
     await this.firestore
       .collection('tasks')
       .doc(uidUser)
@@ -45,14 +45,27 @@ export class TaskService {
           doc.ref.delete();
         });
       });
-    this.toastr.error('You have deleted a task!', 'Alert', {
-      timeOut: 5000,
-      extendedTimeOut: 3000,
-      disableTimeOut: false,
-      closeButton: true,
-      positionClass: 'toast-top-center',
-      progressBar: true,
-      progressAnimation: 'decreasing'
-    });
+    if (currentLang === 'en-US') {
+      this.toastr.error('You have deleted a task!', 'Alert', {
+        timeOut: 5000,
+        extendedTimeOut: 3000,
+        disableTimeOut: false,
+        closeButton: true,
+        positionClass: 'toast-top-center',
+        progressBar: true,
+        progressAnimation: 'decreasing'
+      });
+    }
+    if (currentLang === 'es') {
+      this.toastr.error('Has eliminado una tarea!', 'Alerta', {
+        timeOut: 5000,
+        extendedTimeOut: 3000,
+        disableTimeOut: false,
+        closeButton: true,
+        positionClass: 'toast-top-center',
+        progressBar: true,
+        progressAnimation: 'decreasing'
+      });
+    }
   }
 }
