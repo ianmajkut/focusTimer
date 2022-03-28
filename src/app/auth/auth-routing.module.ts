@@ -11,15 +11,15 @@ const routes: Routes = [
     component: AuthComponent,
     children: [
       {
-        path: 'login',
+        path: 'login/:lang',
         component: LoginComponent
       },
       {
-        path: 'signup',
+        path: 'signup/:lang',
         component: SignupComponent
       },
       {
-        path: 'verification',
+        path: 'verification/:lang',
         component: VerificationComponent
       },
       {

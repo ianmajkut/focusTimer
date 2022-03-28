@@ -1,90 +1,90 @@
 <div class="container-flex">
   <div class="signup-container">
-    <h1>Sign Up</h1>
+    <h1>{{'signup title' | translate}}</h1>
     <form class="form" [formGroup]="myForm">
       <mat-form-field appearance="outline" style="margin-bottom: 6px">
-        <mat-label>Fullname</mat-label>
+        <mat-label>{{'fullname title'|translate}}</mat-label>
         <input
           matInput
-          placeholder="Write your name & lastname"
+          placeholder="{{'fullname placeholder'|translate}}"
           type="text"
           formControlName="fullname"
         />
         <mat-error
           *ngIf="myForm.controls['fullname'].errors?.['required'] && myForm.controls['fullname'].touched"
         >
-          Your fullname is required
+          {{'error required' | translate}}
         </mat-error>
         <mat-error
           *ngIf="myForm.controls['fullname'].errors?.['minlength'] && myForm.controls['fullname'].touched"
         >
-          Your fullname is too short
+          {{'fullname short' |translate}}
         </mat-error>
       </mat-form-field>
       <mat-form-field appearance="outline" style="margin-bottom: 6px">
-        <mat-label>Email</mat-label>
+        <mat-label>{{'email title'| translate}}</mat-label>
         <input
           matInput
-          placeholder="Write your email"
+          placeholder="{{'email placeholder'|translate}}"
           type="email"
           formControlName="email"
         />
         <mat-error
           *ngIf="myForm.controls['email'].errors?.['required'] && myForm.controls['email'].touched"
         >
-          The email is required
+        {{'error required' | translate}}
         </mat-error>
         <mat-error
           *ngIf="myForm.controls['email'].errors?.['pattern'] && myForm.controls['email'].touched"
         >
-          Invalid email pattern
+          {{'email pattern'| translate}}
         </mat-error>
       </mat-form-field>
       <mat-form-field appearance="outline" style="margin-bottom: 6px">
-        <mat-label>Username</mat-label>
+        <mat-label>{{'username title'| translate}}</mat-label>
         <input
           matInput
-          placeholder="At least 6 characters long"
+          placeholder="{{'username placeholder'|translate}}"
           formControlName="username"
         />
         <mat-error
           *ngIf="myForm.controls['username'].errors?.['required'] && myForm.controls['username'].touched"
         >
-          The username is required
+        {{'error required' | translate}}
         </mat-error>
         <mat-error
           *ngIf="myForm.controls['username'].errors?.['minlength'] && myForm.controls['username'].touched"
         >
-          Username must be at least 6 characters long
+          {{'username error length' |translate}}
         </mat-error>
         <mat-error
           *ngIf="myForm.controls['username'].errors?.['usernameNoAvailable']"
         >
-          Username already exists
+         {{'username error exists' | translate}}
         </mat-error>
         <mat-hint *ngIf="username?.pending">
-          <span>Checking availability of {{ username?.value }}</span>
+          <span>{{'checking username'|translate}} {{ username?.value }}</span>
         </mat-hint>
         <mat-icon *ngIf="username?.valid" matSuffix> check_circle </mat-icon>
         <mat-icon *ngIf="username?.invalid" matSuffix> cancel </mat-icon>
       </mat-form-field>
       <mat-form-field appearance="outline">
-        <mat-label>Password</mat-label>
+        <mat-label>{{'password title'| translate}}</mat-label>
         <input
           matInput
-          placeholder="At least 6 characters long"
+          placeholder="{{'password placeholder'| translate}}"
           formControlName="password"
           type="password"
         />
         <mat-error
           *ngIf="myForm.controls['password'].errors?.['required'] && myForm.controls['password'].touched"
         >
-          The password is required
+        {{'error required' | translate}}
         </mat-error>
         <mat-error
           *ngIf="myForm.controls['password'].errors?.['minlength'] && myForm.controls['password'].touched"
         >
-          Password must be at least 6 characters long
+          {{'password error length' |translate}}
         </mat-error>
         <mat-icon *ngIf="myForm.controls['password'].valid" matSuffix>
           check_circle
@@ -99,11 +99,11 @@
       [disabled]="myForm.invalid"
       (click)="signup()"
     >
-      Create Account
+      {{'btn signup'| translate}}
     </button>
   </div>
   <div class="img-container">
     <img src="../../../assets/signupImg.svg" alt="signupImg" />
   </div>
 </div>
-<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "large" color = "#fff" type = "ball-spin-clockwise" [fullScreen] = "true"><p style="color: white" > Loading... </p></ngx-spinner>
+<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "large" color = "#fff" type = "ball-spin-clockwise" [fullScreen] = "true"><p style="color: white" > {{'loading'|translate}} </p></ngx-spinner>

@@ -37,5 +37,37 @@
           "card resttime": "Tiempo de descanso entre bloques",
           "card description": "Descripción",
           "card eliminate": "Eliminar",
-          "card repeat": "Repetir"
+          "card repeat": "Repetir",
+
+          "signup title": "Insribirse",
+          "fullname title": "Nombre completo",
+          "fullname placeholder": "Escribe tu nombre y apellido",
+          "fullname short":   "Tu nombre completo es muy corto",
+          "email title": "Correo Electrónico",
+          "email placeholder": "Escriba su correo electrónico",
+          "email pattern": "Formato inválido de correo electrónico",
+          "username title": "Nombre de usuario",
+          "username placeholder": "Como mínimo 6 caracteres",
+          "username error length": "El nombre de usuario debe tener al menos 6 caracteres",
+          "username error exists": "Nombre de usuario ya existe",
+          "checking username": "Revisando disponiibilidad de nombre de usuario",
+          "password title": "Contraseña",
+          "password placeholder": "Como mínimo 6 caracteres",
+          "password error length": "La contraseña debe tener al menos 6 caracteres",
+          "btn signup": "Crear cuenta",
+
+          "verification emailNot title": "Correo de verificación enviado",
+          "verification emailNot text1": "Enviamos el correo de verificación a ",
+          "verification emailNot text2": "Por favor revisá tu correo electrónico y clickeá en el enlace de verificación para completar tu registro.",
+          "login btn": "Loguearse ahora",
+
+          "verification email title": "Tu correo electrónico ya está verificado",
+          "verification email text1": "Ya enviamos el correo de verificación a ",
+          "verification email text2": "y ya has verificado tu correo electrónico.",
+          "verification email text3": "Podés loguearte a tu cuenta.",
+
+          "login title": "Loguearse",
+          "sign in google": "Iniciar sesión con Google",
+          "create account text1": "¿No tenés una cuenta?",
+          "create account text2": "Creala ahora"
 }

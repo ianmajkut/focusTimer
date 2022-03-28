@@ -12,6 +12,7 @@ import { TaskService } from 'src/app/services/task.service';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { TranslateService } from '@ngx-translate/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-main',
@@ -202,8 +203,11 @@ export class MainComponent implements AfterViewInit {
     private taskService: TaskService,
     private firestore: AngularFirestore,
     private spinner: NgxSpinnerService,
-    private translateService: TranslateService
+    private translateService: TranslateService,
+    private activeRoute: ActivatedRoute
   ) {
+    this.lang = this.activeRoute.snapshot.params['lang'];
+    this.translateService.use(this.lang);
     this.audio.src = '../../../assets/countdown.wav';
     this.audio.load();
   }

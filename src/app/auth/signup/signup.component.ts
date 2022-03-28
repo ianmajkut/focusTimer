@@ -1,9 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoginRegisterService } from 'src/app/services/login-register.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { TranslateService } from '@ngx-translate/core';
 
 export interface User {
   fullname: string;
@@ -22,8 +23,13 @@ export class SignupComponent implements OnInit {
     private login_register: LoginRegisterService,
     private router: Router,
     public dialog: MatDialog,
-    private spinner: NgxSpinnerService
-  ) {}
+    private spinner: NgxSpinnerService,
+    private activeRoute: ActivatedRoute,
+    private translateService: TranslateService
+  ) {
+    this.lang = this.activeRoute.snapshot.params['lang'];
+    this.translateService.use(this.lang);
+  }
 
   ngOnInit() {
     this.spinner.show();
@@ -35,6 +41,7 @@ export class SignupComponent implements OnInit {
 
   emailPattern: string = '^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$';
   errMessage: string = '';
+  lang!: string;
 
   myForm: FormGroup = this.fb.group({
     fullname: ['', [Validators.required, Validators.minLength(5)]],
@@ -60,7 +67,7 @@ export class SignupComponent implements OnInit {
       () => {
         this.myForm.reset();
         this.spinner.hide();
-        this.router.navigateByUrl('/auth/verification');
+        this.router.navigateByUrl(`/auth/verification/${this.lang}`);
       },
       (error) => {
         this.spinner.hide();

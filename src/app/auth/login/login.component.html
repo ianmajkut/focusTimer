@@ -1,9 +1,9 @@
 <div class="container-flex">
   <div class="login-container">
-    <h1>Login</h1>
+    <h1>{{'login title'| translate}}</h1>
     <form class="form" [formGroup]="myForm">
       <mat-form-field appearance="outline" style="margin-bottom: 6px">
-        <mat-label>Email</mat-label>
+        <mat-label>{{'email title'| translate}}</mat-label>
         <input
           matInput
           placeholder="Write your email"
@@ -13,16 +13,16 @@
         <mat-error
           *ngIf="myForm.controls['email'].errors?.['required'] && myForm.controls['email'].touched"
         >
-          The email is required
+        {{'error required'| translate}}
         </mat-error>
         <mat-error
           *ngIf="myForm.controls['email'].errors?.['pattern'] && myForm.controls['email'].touched"
         >
-          Invalid email pattern
+        {{'email pattern'| translate}}
         </mat-error>
       </mat-form-field>
       <mat-form-field appearance="outline">
-        <mat-label>Password</mat-label>
+        <mat-label>{{'password title'| translate}}</mat-label>
         <input
           matInput
           placeholder="At least 6 characters long"
@@ -31,28 +31,28 @@
         <mat-error
           *ngIf="myForm.controls['password'].errors?.['required'] && myForm.controls['password'].touched"
         >
-          The password is required
+        {{'error required'| translate}}
         </mat-error>
         <mat-error
           *ngIf="myForm.controls['password'].errors?.['minlength'] && myForm.controls['password'].touched"
         >
-          Password must be at least 6 characters long
+        {{'password error length'| translate}}
         </mat-error>
       </mat-form-field>
     </form>
     <button class="login-btn" [disabled]="myForm.invalid" (click)="login()">
-      Login
+      {{'login title'| translate}}
     </button>
     <button class="google-btn" (click)="googleSignIn()">
       <div class="container-google">
         <img src="../../../assets/googleLogo.png" class="google-icon" />
-        <span class="buttonText">Sign in with Google</span>
+        <span class="buttonText">{{'sign in google'| translate}}</span>
       </div>
     </button>
     <span class="signup">
       <p>
-        Don't have an account?
-        <a routerLink="/auth/signup"><strong>Sign up</strong></a>
+        {{'create account text1'| translate}}
+        <a routerLink="/auth/signup"><strong>{{'create account text2'|translate}}</strong></a>
       </p>
     </span>
   </div>
@@ -60,4 +60,4 @@
     <img src="../../../assets/loginImg.svg" alt="" />
   </div>
 </div>
-<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "large" color = "#fff" type = "ball-spin-clockwise" [fullScreen] = "true"><p style="color: white" > Loading... </p></ngx-spinner>
+<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "large" color = "#fff" type = "ball-spin-clockwise" [fullScreen] = "true"><p style="color: white" > {{'loading'| translate}} </p></ngx-spinner>

@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { LoginRegisterService } from 'src/app/services/login-register.service';
 import { SignupErrorDialogComponent } from '../signup/signup.component';
 import firebase from 'firebase/compat/app';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-login',
@@ -20,8 +21,13 @@ export class LoginComponent implements OnInit {
     private auth: AngularFireAuth,
     private router: Router,
     public dialog: MatDialog,
-    private spinner: NgxSpinnerService
-  ) {}
+    private spinner: NgxSpinnerService,
+    private activeRoute: ActivatedRoute,
+    private translateService: TranslateService
+  ) {
+    this.lang = this.activeRoute.snapshot.params['lang'];
+    this.translateService.use(this.lang);
+  }
 
   ngOnInit() {
     this.spinner.show();
@@ -33,6 +39,8 @@ export class LoginComponent implements OnInit {
 
   emailPattern: string = '^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$';
   errMessage: string = '';
+
+  lang!: string;
 
   myForm: FormGroup = this.fb.group({
     email: ['', [Validators.required, Validators.pattern(this.emailPattern)]],
@@ -46,10 +54,10 @@ export class LoginComponent implements OnInit {
       const user = await this.login_register.login(email, password);
       if (user && user.user?.emailVerified) {
         this.spinner.hide();
-        this.router.navigateByUrl('/home');
+        this.router.navigateByUrl('/home/');
       } else if (user) {
         this.spinner.hide();
-        this.router.navigateByUrl('/auth/verification');
+        this.router.navigateByUrl(`/auth/verification/${this.lang}`);
       }
     } catch (error: any) {
       this.spinner.hide();

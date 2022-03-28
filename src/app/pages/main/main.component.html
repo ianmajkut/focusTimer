@@ -1,13 +1,13 @@
 <div class="navbar">
   <div class="logo">Focus Timer</div>
   <div class="right-navbar">
-    <button *ngIf="!isLogged" class="btn-navbar btn-log-in" routerLink="/auth" >
+    <button *ngIf="!isLogged" class="btn-navbar btn-log-in" [routerLink]="['/auth/login', lang]" >
       {{'login btn navbar'| translate}}
     </button>
     <button
       *ngIf="!isLogged"
       class="btn-navbar btn-sign-up"
-      routerLink="/auth/signup"
+      [routerLink]="['/auth/signup', lang]"
     >
       {{'signup btn navbar'| translate}}
     </button>

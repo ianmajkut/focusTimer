@@ -37,5 +37,37 @@
           "card resttime": "Resting Time between sets",
           "card description": "Description",
           "card eliminate": "Eliminate",
-          "card repeat": "Repeat"
+          "card repeat": "Repeat",
+
+          "signup title": "Sign Up",
+          "fullname title": "Fullname",
+          "fullname placeholder": "Write your name & lastname",
+          "fullname short":   "Your fullname is too short",
+          "email title": "Email",
+          "email placeholder": "Write your email",
+          "email pattern": "Invalid email pattern",
+          "username title": "Username",
+          "username placeholder": "At least 6 characters long",
+          "username error length": "Username must be at least 6 characters long",
+          "username error exists": "Username already exists",
+          "checking username": "Checking availability of",
+          "password title": "Password",
+          "password placeholder": "At least 6 characters long",
+          "password error length": "Password must be at least 6 characters long",
+          "btn signup": "Create account",
+
+          "verification emailNot title": "Verification Email sent",
+          "verification emailNot text1": "We have sent a confirmation email to ",
+          "verification emailNot text2": "Please check your email and click on the link to verify your email address.",
+          "login btn": "Login now",
+
+          "verification email title": "Your Email is already verified",
+          "verification email text1": "We have sent a confirmation email to ",
+          "verification email text2": "and you have verified your email address.",
+          "verification email text3": "You can now login to your account.",
+
+          "login title": "Login",
+          "sign in google": "Sign in with Google",
+          "create account text1": "Don't have an account?",
+          "create account text2": "Sign up"
 }

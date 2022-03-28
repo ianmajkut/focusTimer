@@ -1,36 +1,36 @@
 <div class="container-flex" *ngIf="user | async as user">
   <div class="verification-container">
     <mat-card class="card" *ngIf="!isEmailVerified">
-      <mat-card-title> Verification Email sent </mat-card-title>
+      <mat-card-title> {{'verification emailNot title'| translate}} </mat-card-title>
       <mat-card-content>
         <p>
-          We have sent a confirmation email to
-          <strong>{{ user?.email }}</strong>
+          {{'verification emailNot text1'| translate}}
+        <strong>{{ user?.email }}</strong>
         </p>
         <p>
-          Please check your email and click on the link to verify your email
-          address.
+          {{'verification emailNot text2'| translate}}
         </p>
       </mat-card-content>
       <mat-card-actions>
         <button mat-raised-button color="primary" (click)="goLogin()">
-          Login now
+          {{'login btn'| translate}}
         </button>
       </mat-card-actions>
     </mat-card>
     <mat-card class="card" *ngIf="isEmailVerified">
-      <mat-card-title> Your Email is already verified </mat-card-title>
+      <mat-card-title> 
+        {{'verification email title'| translate}} 
+      </mat-card-title>
       <mat-card-content>
         <p>
-          We have sent a confirmation email to
-          <strong>{{ user?.email }}</strong> and you have verified your email
-          address.
+          {{'verification email text1'| translate}}
+          <strong>{{ user?.email }}</strong> {{'verification email text2'| translate}}
         </p>
-        <p>You can now login to your account.</p>
+        <p>{{'verification email text3'| translate}}</p>
       </mat-card-content>
       <mat-card-actions>
         <button mat-raised-button color="primary" (click)="goLogin()">
-          Login now
+          {{'login btn'| translate}}
         </button>
       </mat-card-actions>
     </mat-card>
@@ -39,4 +39,4 @@
     <img src="../../../assets/authenticationImg.svg" alt="authImg" />
   </div>
 </div>
-<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "large" color = "#fff" type = "ball-spin-clockwise" [fullScreen] = "true"><p style="color: white" > Loading... </p></ngx-spinner>
+<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "large" color = "#fff" type = "ball-spin-clockwise" [fullScreen] = "true"><p style="color: white" > {{'loading'|translate}} </p></ngx-spinner>
