@@ -180,10 +180,10 @@ export class MainComponent implements AfterViewInit {
   typeOfBlock!: string;
 
   myForm: FormGroup = this.formBuilder.group({
-    taskName: ['a', [Validators.required]],
-    workingTime: ['0.1', [Validators.required]],
-    amountBlocks: ['2', [Validators.required, Validators.min(2)]],
-    restTime: ['0.1', [Validators.required]],
+    taskName: ['', [Validators.required]],
+    workingTime: ['', [Validators.required, Validators.min(1)]],
+    amountBlocks: ['', [Validators.required, Validators.min(2)]],
+    restTime: ['', [Validators.required, Validators.min(1)]],
     description: [,]
   });
 

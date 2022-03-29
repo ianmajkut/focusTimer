@@ -1,24 +1,27 @@
 <div class="navbar">
   <div class="logo">Focus Timer</div>
   <div class="right-navbar">
-    <button *ngIf="!isLogged" class="btn-navbar btn-log-in" [routerLink]="['/auth/login', lang]" >
-      {{'login btn navbar'| translate}}
+    <button
+      *ngIf="!isLogged"
+      class="btn-navbar btn-log-in"
+      [routerLink]="['/auth/login', lang]"
+    >
+      {{ 'login btn navbar' | translate }}
     </button>
     <button
       *ngIf="!isLogged"
       class="btn-navbar btn-sign-up"
       [routerLink]="['/auth/signup', lang]"
     >
-      {{'signup btn navbar'| translate}}
+      {{ 'signup btn navbar' | translate }}
     </button>
     <button *ngIf="isLogged" class="btn-navbar btn-log-out" (click)="logout()">
-      {{'logout btn navbar'| translate}}
+      {{ 'logout btn navbar' | translate }}
     </button>
     <select (change)="selectLanguage($event)" class="language-picker">
-      <option value="en-US"> {{ 'language.english' | translate }} </option>
-      <option value="es"> {{ 'language.spanish' | translate }} </option>
+      <option value="en-US">{{ 'language.english' | translate }}</option>
+      <option value="es">{{ 'language.spanish' | translate }}</option>
     </select>
-    
   </div>
 </div>
 
@@ -26,12 +29,15 @@
   <div class="container">
     <div class="text">
       <h1>
-        {{'title header'| translate}}
+        {{ 'title header' | translate }}
         <img src="https://img.icons8.com/stickers/50/000000/goal.png" />
       </h1>
       <h2>
-        {{'subtitle header first part'| translate}}
-        <strong class="underline">{{'subtitle header second part'| translate}}</strong> {{'subtitle header third part'| translate}}
+        {{ 'subtitle header first part' | translate }}
+        <strong class="underline">{{
+          'subtitle header second part' | translate
+        }}</strong>
+        {{ 'subtitle header third part' | translate }}
       </h2>
       <Particles
         *ngIf="!confettiHide"
@@ -61,34 +67,35 @@
 <div class="container-main">
   <div class="task">
     <h2>
-      {{'form task' | translate}}
+      {{ 'form task' | translate }}
       <img src="https://img.icons8.com/stickers/45/000000/pencil.png" />
     </h2>
     <form class="form" [formGroup]="myForm">
       <mat-form-field appearance="outline">
-        <mat-label>{{'form task taskname'| translate}}</mat-label>
-        <input
-          matInput
-          autocomplete="off"
-          formControlName="taskName"
-        />
-        <mat-error *ngIf="myForm.invalid">{{'error required'| translate}}</mat-error>
+        <mat-label>{{ 'form task taskname' | translate }}</mat-label>
+        <input matInput autocomplete="off" formControlName="taskName" />
+        <mat-error *ngIf="myForm.invalid">{{
+          'error required' | translate
+        }}</mat-error>
       </mat-form-field>
       <mat-form-field appearance="outline">
-        <mat-label>{{'worktime title' | translate}}</mat-label>
+        <mat-label>{{ 'worktime title' | translate }}</mat-label>
         <input
           matInput
           autocomplete="off"
           type="number"
           formControlName="workingTime"
         />
-        <mat-error *ngIf="myForm.controls['workingTime'].errors?.['required']">{{'error required'| translate}}</mat-error>
-        <mat-error *ngIf="myForm.controls['workingTime'].errors?.['min']"
-          >{{'error mintime'| translate}}</mat-error
+        <mat-error
+          *ngIf="myForm.controls['workingTime'].errors?.['required']"
+          >{{ 'error required' | translate }}</mat-error
         >
+        <mat-error *ngIf="myForm.controls['workingTime'].errors?.['min']">{{
+          'error mintime' | translate
+        }}</mat-error>
       </mat-form-field>
       <mat-form-field appearance="outline">
-        <mat-label>{{'title amountBlocks'| translate}}</mat-label>
+        <mat-label>{{ 'title amountBlocks' | translate }}</mat-label>
         <input
           matInput
           autocomplete="off"
@@ -96,15 +103,16 @@
           formControlName="amountBlocks"
           min="0"
         />
-        <mat-error *ngIf="myForm.controls['amountBlocks'].errors?.['required']"
-          >{{'error required'| translate}}</mat-error
+        <mat-error
+          *ngIf="myForm.controls['amountBlocks'].errors?.['required']"
+          >{{ 'error required' | translate }}</mat-error
         >
-        <mat-error *ngIf="myForm.controls['amountBlocks'].errors?.['min']"
-          >{{'error amountBlocks'| translate}}</mat-error
-        >
+        <mat-error *ngIf="myForm.controls['amountBlocks'].errors?.['min']">{{
+          'error amountBlocks' | translate
+        }}</mat-error>
       </mat-form-field>
       <mat-form-field appearance="outline">
-        <mat-label>{{'restime title' | translate}}</mat-label>
+        <mat-label>{{ 'restime title' | translate }}</mat-label>
         <input
           matInput
           autocomplete="off"
@@ -112,22 +120,23 @@
           formControlName="restTime"
           min="0"
         />
-        <mat-error *ngIf="myForm.controls['restTime'].errors?.['required']"
-          >{{'error required' | translate}}</mat-error
-        >
-        <mat-error *ngIf="myForm.controls['restTime'].errors?.['min']"
-          >{{'error mintime'| translate}}</mat-error
-        >
+        <mat-error *ngIf="myForm.controls['restTime'].errors?.['required']">{{
+          'error required' | translate
+        }}</mat-error>
+        <mat-error *ngIf="myForm.controls['restTime'].errors?.['min']">{{
+          'error mintime' | translate
+        }}</mat-error>
       </mat-form-field>
       <mat-form-field appearance="outline">
-        <mat-label>{{'description' | translate}}</mat-label>
+        <mat-label>{{ 'description' | translate }}</mat-label>
         <textarea matInput formControlName="description"></textarea>
       </mat-form-field>
     </form>
   </div>
   <div class="timer-container">
     <h2>
-      {{'timer title'| translate}} <img src="https://img.icons8.com/stickers/45/000000/clock.png" />
+      {{ 'timer title' | translate }}
+      <img src="https://img.icons8.com/stickers/45/000000/clock.png" />
     </h2>
     <div class="container-buttons">
       <button
@@ -197,8 +206,8 @@
     *ngIf="completedTasks && completedTasks.length > 0; else emptyTask"
   >
     <mat-card-title>
-      <h2 style="color: #fff !important;">
-        {{'completed title' | translate}}
+      <h2 style="color: #fff !important">
+        {{ 'completed title' | translate }}
         <img
           src="https://img.icons8.com/stickers/45/000000/task-completed--v2.png"
         />
@@ -228,7 +237,7 @@
   <mat-card class="card-noLogged">
     <mat-card-title>
       <h2>
-        {{'notlogged' | translate}}
+        {{ 'notlogged' | translate }}
         <img
           src="https://img.icons8.com/stickers/45/000000/--broken-heart.png"
         />
@@ -236,7 +245,9 @@
     </mat-card-title>
     <mat-card-content>
       <h3>
-        {{'notlogged part 1'| translate}}<a routerLink="/auth/login">{{'notlogged part 2'| translate}}</a> {{'notlogged part 3'| translate}} 
+        {{ 'notlogged part 1' | translate
+        }}<a routerLink="/auth/login">{{ 'notlogged part 2' | translate }}</a>
+        {{ 'notlogged part 3' | translate }}
       </h3>
     </mat-card-content>
   </mat-card>
@@ -247,19 +258,31 @@
     <mat-card class="card-empty">
       <mat-card-title>
         <h2>
-          {{'anycompleted title' | translate}}
+          {{ 'anycompleted title' | translate }}
           <img src="https://img.icons8.com/stickers/100/000000/sad-cloud.png" />
         </h2>
       </mat-card-title>
       <mat-card-content>
         <div class="motivational-container">
-          <h3>{{'quote 1'| translate}}</h3>
+          <h3>{{ 'quote 1' | translate }}</h3>
           <h3>
-            {{'quote 2'| translate}}<strong>{{'quote 3'| translate}}</strong> {{'quote 4'| translate}}<i>{{'quote 5'| translate}}</i> {{'quote 6'| translate}}<strong>{{'quote 7'| translate}}</strong>." —Mark Twain
+            {{ 'quote 2' | translate
+            }}<strong>{{ 'quote 3' | translate }}</strong>
+            {{ 'quote 4' | translate }}<i>{{ 'quote 5' | translate }}</i>
+            {{ 'quote 6' | translate
+            }}<strong>{{ 'quote 7' | translate }}</strong
+            >." —Mark Twain
           </h3>
         </div>
       </mat-card-content>
     </mat-card>
   </div>
 </ng-template>
-<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "large" color = "#fff" type = "ball-spin-clockwise" [fullScreen] = "true"><p style="color: white" > {{'loading' | translate}} </p></ngx-spinner>
+<ngx-spinner
+  bdColor="rgba(0, 0, 0, 0.8)"
+  size="large"
+  color="#fff"
+  type="ball-spin-clockwise"
+  [fullScreen]="true"
+  ><p style="color: white">{{ 'loading' | translate }}</p></ngx-spinner
+>

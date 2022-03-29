@@ -1,20 +1,20 @@
 <mat-card class="card">
   <mat-card-title>{{ taskInput.taskName }}</mat-card-title>
-  <mat-card-subtitle>Id: {{taskInput.id}} </mat-card-subtitle>
+  <mat-card-subtitle>Id: {{ taskInput.id }} </mat-card-subtitle>
   <mat-card-content>
-    <p>{{'card amountblocks' | translate}}: {{ taskInput.amountBlocks }}</p>
-    <p>{{'card worktime' | translate}}: {{ taskInput.workingTime }}</p>
-    <p>{{'card resttime' | translate}}: {{ taskInput.restTime }}</p>
-    <p *ngIf="!taskInput.description === null">
-      {{'card description'| translate}}: {{ taskInput.description }}
+    <p>{{ 'card amountblocks' | translate }}: {{ taskInput.amountBlocks }}</p>
+    <p>{{ 'card worktime' | translate }}: {{ taskInput.workingTime }}</p>
+    <p>{{ 'card resttime' | translate }}: {{ taskInput.restTime }}</p>
+    <p *ngIf="taskInput.description !== null">
+      {{ 'card description' | translate }}: {{ taskInput.description }}
     </p>
   </mat-card-content>
   <mat-card-actions style="display: flex; justify-content: space-evenly">
     <button mat-flat-button color="warn" (click)="eliminateTask()">
-      {{'card eliminate' | translate}}
+      {{ 'card eliminate' | translate }}
     </button>
     <button mat-flat-button color="primary" (click)="repeatTask()">
-      {{'card repeat' | translate}}
+      {{ 'card repeat' | translate }}
     </button>
   </mat-card-actions>
 </mat-card>

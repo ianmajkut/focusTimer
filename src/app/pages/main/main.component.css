@@ -75,7 +75,6 @@ select::-ms-expand {
   display: none;
 }
 
-
 @keyframes slide-top {
   0% {
     transform: translateY(0);
