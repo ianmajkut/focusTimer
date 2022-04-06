@@ -1,3 +1,4 @@
+<div id="body" >
 <div class="navbar">
   <div class="logo">Focus Timer</div>
   <div class="right-navbar">
@@ -23,6 +24,35 @@
       <option value="es">{{ 'language.spanish' | translate }}</option>
     </select>
   </div>
+  <button type="button" class="hamburger" id="menu-btn" (click)="switchOpenClose()">
+    <span class="hamburger-top"></span>
+    <span class="hamburger-middle"></span>
+    <span class="hamburger-bottom"></span>
+  </button>
+</div>
+
+<div class="mobile-menu hidden" id="menu">
+  <button
+      *ngIf="!isLogged"
+      class="btn-navbar btn-log-in"
+      [routerLink]="['/auth/login', lang]"
+    >
+      {{ 'login btn navbar' | translate }}
+    </button>
+    <button
+      *ngIf="!isLogged"
+      class="btn-navbar btn-sign-up"
+      [routerLink]="['/auth/signup', lang]"
+    >
+      {{ 'signup btn navbar' | translate }}
+    </button>
+    <button *ngIf="isLogged" class="btn-navbar btn-log-out" (click)="logout()">
+      {{ 'logout btn navbar' | translate }}
+    </button>
+    <select (change)="selectLanguage($event)" class="language-picker">
+      <option value="en-US">{{ 'language.english' | translate }}</option>
+      <option value="es">{{ 'language.spanish' | translate }}</option>
+    </select>
 </div>
 
 <div class="header">
@@ -286,3 +316,4 @@
   [fullScreen]="true"
   ><p style="color: white">{{ 'loading' | translate }}</p></ngx-spinner
 >
+</div>

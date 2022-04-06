@@ -84,6 +84,84 @@ select::-ms-expand {
   }
 }
 
+/*Hamburguer*/
+.hamburger {
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+  position: relative;
+  background: none;
+  border: none;
+  z-index: 10;
+  transition: all 0.25s;
+  display: none;
+}
+
+.hamburger-top, .hamburger-middle, .hamburger-bottom {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 24px;
+  height: 2px;
+  background: #fff;
+  transform: rotate(0);
+  transition: all 0.25s;          
+}
+
+.hamburger-middle {
+  transform: translateY(7px);
+}
+
+.hamburger-bottom {
+  transform: translateY(14px);
+}
+
+.open .hamburger-top {
+  transform: rotate(45deg) translateY(6px) translateX(6px)
+}
+.open .hamburger-middle{
+  display: none;
+}
+.open .hamburger-bottom{
+  transform: rotate(-45deg) translateY(6px) translateX(-6px)
+}
+
+/*End Hamburger*/
+
+/*Mobile Menu*/
+.mobile-menu {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  top: 60px;
+  right: 0;
+  background-color: #457B9D;
+  width: 30%;
+  z-index: 1;
+  height: 100%;
+          padding: 30px;
+          box-shadow: 0 1px 3px rgb(0 0 0 / 10%), 0 2px 2px rgb(0 0 0 / 6%),
+    0 0 2px rgb(0 0 0 / 7%);
+          transition: all 0.3s;
+}
+
+.mobile-menu > * {
+  margin: 5px 0;
+}
+
+.hidden {
+  transform: translateX(100%);
+}
+
+.no-scroll {
+  overflow: hidden;
+  height: 100%;
+  
+}
+/*End Mobile Menu*/
+
 .header .container {
   background: #f1faee;
   padding-top: 20px;
@@ -375,5 +453,21 @@ mat-form-field {
 @media screen and (max-width: 615px) {
   .container-noLogged {
     padding-top: 30px;
+  }
+}
+
+@media screen and (max-width: 528px) {
+  .text h1 > img {
+    display: none;
+  }
+}
+
+
+@media screen and (max-width: 945px) {
+  .right-navbar {
+    display: none;
+  }
+  .hamburger {
+    display: block;
   }
 }

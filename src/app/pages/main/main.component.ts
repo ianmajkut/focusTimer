@@ -468,4 +468,10 @@ export class MainComponent implements AfterViewInit {
       this.title = 'Comenzar una tarea';
     }
   }
+
+  switchOpenClose() {
+    document.getElementById('menu-btn')?.classList.toggle('open');
+    document.getElementById('menu')?.classList.toggle('hidden');
+    document.getElementById('body')?.classList.toggle('no-scroll');
+  }
 }
