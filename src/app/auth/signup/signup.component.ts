@@ -27,6 +27,7 @@ export class SignupComponent implements OnInit {
     private activeRoute: ActivatedRoute,
     private translateService: TranslateService
   ) {
+    //Obtain the language from the url
     this.lang = this.activeRoute.snapshot.params['lang'];
     this.translateService.use(this.lang);
   }
@@ -82,6 +83,7 @@ export class SignupComponent implements OnInit {
   }
 }
 
+//MatDialog component to display the error messages
 @Component({
   selector: 'app-signup-error-dialog',
   template: `

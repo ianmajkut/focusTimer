@@ -15,6 +15,7 @@ export class TaskCardComponent {
   @Output() repeatTaskEvent = new EventEmitter<string>();
   constructor(private taskService: TaskService) {}
 
+  //Method that delete the task
   eliminateTask() {
     this.taskService.deleteTask(
       this.taskInput.id,
@@ -23,6 +24,7 @@ export class TaskCardComponent {
     );
   }
 
+  //Method that send the id of the task to main.component.ts
   repeatTask() {
     //Emit the output
     this.repeatTaskEvent.emit(this.taskInput.id);

@@ -45,7 +45,7 @@ export class LoginRegisterService {
       throw error;
     }
   }
-
+  //Method to send a verification email to the user
   async sendVerificationEmail() {
     try {
       return await (await this.auth.currentUser)?.sendEmailVerification();
@@ -53,7 +53,7 @@ export class LoginRegisterService {
       throw error;
     }
   }
-
+  //Method to login with email and password
   async login(email: string, password: string) {
     try {
       return await this.auth.signInWithEmailAndPassword(email, password);

@@ -25,6 +25,7 @@ export class LoginComponent implements OnInit {
     private activeRoute: ActivatedRoute,
     private translateService: TranslateService
   ) {
+    //Obtain the language from the url
     this.lang = this.activeRoute.snapshot.params['lang'];
     this.translateService.use(this.lang);
   }
@@ -52,6 +53,7 @@ export class LoginComponent implements OnInit {
     const { email, password } = this.myForm.value;
     try {
       const user = await this.login_register.login(email, password);
+      //Check if the user is verified
       if (user && user.user?.emailVerified) {
         this.spinner.hide();
         this.router.navigateByUrl('/home/');

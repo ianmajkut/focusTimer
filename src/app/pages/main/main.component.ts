@@ -19,7 +19,7 @@ import { TranslateService } from '@ngx-translate/core';
 export class MainComponent implements AfterViewInit {
   confettiHide: boolean = true;
 
-  //Stle for Conffeti
+  //Style for Conffeti
   options: ISourceOptions = {
     particles: {
       number: {
@@ -145,8 +145,11 @@ export class MainComponent implements AfterViewInit {
       }
     }
   };
+  //End Style for Conffeti
 
+  //Set default language
   lang: string = 'en-US';
+
   //Circle Spinner
   percent!: number;
   title: string = 'Start a task';
@@ -191,6 +194,7 @@ export class MainComponent implements AfterViewInit {
   public isLogged!: boolean;
   userUID!: string;
 
+  //Creation of audio for countdown
   audio: any = new Audio();
 
   constructor(
@@ -202,6 +206,7 @@ export class MainComponent implements AfterViewInit {
     private spinner: NgxSpinnerService,
     private translateService: TranslateService
   ) {
+    //Set and load audio for countdown
     this.audio.src = '../../../assets/countdown.wav';
     this.audio.load();
   }
@@ -210,12 +215,16 @@ export class MainComponent implements AfterViewInit {
     this.getUserState();
   }
 
+  //Get user state
   async getUserState() {
     this.spinner.show();
     await this.auth.authState.subscribe((user) => {
       if (user?.email) {
+        //Obtain the user UID
         this.userUID = user.uid;
+        //The user is logged
         this.isLogged = true;
+        //Obtain the tasks of the user
         this.getTasks();
       } else {
         this.isLogged = false;
@@ -224,6 +233,7 @@ export class MainComponent implements AfterViewInit {
     });
   }
 
+  //Method to sign out
   logout() {
     this.spinner.show();
     setTimeout(() => {
@@ -235,19 +245,26 @@ export class MainComponent implements AfterViewInit {
   play() {
     if (this.creationOfTask) {
       this.creationOfTask = false;
+      //Obtain the values of the form
       const { workingTime, amountBlocks } = this.myForm.value;
       this.workingTimeForSpinner = workingTime;
       this.roundsBlocks = amountBlocks;
-      //this.tasks.push(this.myForm.value);
+
+      //When we start a task, we have to show the pause and stop button
       this.showPauseButton = true;
       this.showStopButton = true;
-      //console.log(this.myForm.value);
-      // console.log(this.tasks);
+      /*
+      Call the method to start the countdown,
+      send the time that the user has to work (*60 because the time is in minutes)
+      and the number of rounds
+      */
       this.workingTimer(this.workingTimeForSpinner * 60, this.roundsBlocks);
     }
     if (this.pausedState) {
+      //Set the pause state to false
       this.pausedState = false;
       this.resumeTask = true;
+      //Play the audio for the countdown
       if (this.currentWorkingTime <= 2) {
         this.audio.play();
       }
@@ -255,18 +272,27 @@ export class MainComponent implements AfterViewInit {
     }
   }
 
+  //Method to pause the task
   pauseTask() {
+    //Pause the audio
     this.audio.pause();
+    //Pause the timer
     this.workingSubs.unsubscribe();
+    //Set the paused state to true
     this.pausedState = true;
   }
 
+  //Method to stop the task
   stopTask() {
+    //Unsubscribe the timer subscription
     this.workingSubs.unsubscribe();
+    //Pause the audio if it is playing and load the audio for the countdown
     this.audio.pause();
     this.audio.load();
     this.creationOfTask = true;
+    //Reset the form
     this.myForm.reset();
+    //Reset all the variables for the circle spinner and hide the buttons
     this.workingTimeForSpinner = 0;
     this.roundsBlocks = 0;
     this.showPauseButton = false;
@@ -276,12 +302,17 @@ export class MainComponent implements AfterViewInit {
     this.subtitle = '';
   }
 
+  //Method to start the working coutndown
   workingTimer(workTime: number, rounds: number) {
+    //Show the pause and stop button
     this.showPauseButton = true;
     this.showStopButton = true;
+    //Set the color of the circle spinner(working)
     this.outerStrokeColor = '#4882c2';
     this.outerStrokeGradientStopColor = '#53a9ff';
+    //Checl if the user has more rounds or if it is the last round
     if (rounds > 0 || this.isLastRound === true) {
+      //Set the type of block to working
       this.typeOfBlock = 'Working Time Countdown:';
       //Cicle
       if (this.lang === 'en-US') {
@@ -290,35 +321,40 @@ export class MainComponent implements AfterViewInit {
       if (this.lang === 'es') {
         this.title = 'Cuenta regr. trabajo ';
       }
+      /*
+      If we paused the task, we have to resume the timer
+      so we have to obtain the rounds that the user has left
+      */
       this.resumeAmountBlocks = rounds;
-      //rounds = this.roundsBlocks;
-      // this.color = 'warn';
+
       const timeWork = workTime;
+      //Countdown
       this.workingSubs = this.timerInterval
         .pipe(take(timeWork))
         .subscribe((val) => {
-          //console.log(`Val: ${val}. TimeWork: ${timeWork}`);
           this.currentWorkingTime = timeWork - (val + 1);
-          //console.log(`Current working time: ${this.currentWorkingTime}`);
           //Progress Spinner value
           this.showingTime = this.currentWorkingTime;
-          // this.value = (this.currentWorkingTime * 100) / timeWork;
+
           //Circle
           this.subtitle = this.currentWorkingTime.toString();
           this.percent =
             (this.currentWorkingTime * 100) / (this.workingTimeForSpinner * 60);
-          //console.log(this.percent);
-          //console.log(`Work timing ${this.currentWorkingTime} sec`);
+
           if (this.currentWorkingTime === 2) {
             this.audio.play();
           }
           if (this.currentWorkingTime == 0) {
+            //Rest the round after the countdown is over
             --rounds;
             if (rounds === 0) {
+              //Set the last round to true
               this.isLastRound = true;
             }
+            //Obtain the time that the user has to rest
             const { restTime } = this.myForm.value;
             this.restingTimeForSpinner = restTime;
+            //Call the method to start the rest countdown
             this.restTimer(this.restingTimeForSpinner * 60, rounds);
           }
         });
@@ -327,14 +363,17 @@ export class MainComponent implements AfterViewInit {
     return;
   }
 
+  //Method to start the resting coutndown
   restTimer(restTime: number, rounds: number) {
+    //We can't pause or stop the task in the resting countdown
     this.showPauseButton = false;
     this.showStopButton = false;
+    //Change the color of the circle spinner(resting)
     this.outerStrokeColor = '#e63946';
     this.outerStrokeGradientStopColor = '#e63946';
     if (rounds > 0 || !this.isLastRound) {
       this.typeOfBlock = 'Resting Time Countdown:';
-      // this.color = 'primary';
+
       //Circle
       if (this.lang === 'en-US') {
         this.title = 'Resting Countdown:';
@@ -349,13 +388,13 @@ export class MainComponent implements AfterViewInit {
         .subscribe((val) => {
           this.currentRestingTime = timeRest - (val + 1);
           //Progress Spinner value
-          // this.value = (this.currentRestingTime * 100) / timeRest;
+
           this.showingTime = this.currentRestingTime;
           //Circle
           this.subtitle = this.currentRestingTime.toString();
           this.percent =
             (this.currentRestingTime * 100) / (this.restingTimeForSpinner * 60);
-          //console.log(`Rest timing ${this.currentRestingTime} sec`);
+
           if (this.currentRestingTime === 2) {
             this.audio.play();
           }
@@ -365,25 +404,31 @@ export class MainComponent implements AfterViewInit {
         });
       return this.restingSubs;
     }
+    //If the user has no more rounds, we have to stop the task
     //Circle
     this.isLastRound = false;
+    //Method to change the language of the title for the circle spinner
     this.changeComponentLanguage();
     this.subtitle = '';
     this.creationOfTask = true;
+    //Unsubscribe the timer subscriptions
     this.workingSubs.unsubscribe();
     this.restingSubs.unsubscribe();
 
     //Form
-    //this.completedTasks.push(this.myForm.value);
+    //Asign the values to the form to a variable
     let task: Task = this.myForm.value;
+    //Call method and pass the task to the method
     this.saveTask(task);
 
+    //Reset the form and launch the confetti
     this.myForm.reset();
     this.launchConfetti();
 
     return;
   }
 
+  //Method to launch the confetti and the toastr
   launchConfetti() {
     this.confettiHide = false;
     if (this.lang === 'en-US') {
@@ -422,11 +467,13 @@ export class MainComponent implements AfterViewInit {
     }, 5000);
   }
 
+  //Method to save the task
   saveTask(task: Task) {
     //localStorage.setItem('completedTasks', JSON.stringify(completedTasks));
     this.taskService.saveTaskFirestore(task, this.userUID);
   }
 
+  //Obtain the tasks from the database
   async getTasks() {
     await this.firestore
       .collection('tasks')
@@ -438,7 +485,7 @@ export class MainComponent implements AfterViewInit {
         this.spinner.hide();
       });
   }
-
+  //Method to repeat the task again, obtaining the tasks from the database and setting the form
   async patchTask(taskId: string) {
     this.spinner.show();
     await this.firestore
@@ -453,13 +500,13 @@ export class MainComponent implements AfterViewInit {
         this.spinner.hide();
       });
   }
-
+  //Method to change the global language
   public selectLanguage(event: any) {
     this.translateService.use(event.target.value);
     this.lang = event.target.value;
     this.changeComponentLanguage();
   }
-
+  //Method to change the language of the title for the circle spinner
   changeComponentLanguage() {
     if (this.lang === 'en-US') {
       this.title = 'Start a task';
@@ -469,6 +516,7 @@ export class MainComponent implements AfterViewInit {
     }
   }
 
+  //Method to toggle class for the hamburger menu
   switchOpenClose() {
     document.getElementById('menu-btn')?.classList.toggle('open');
     document.getElementById('menu')?.classList.toggle('hidden');

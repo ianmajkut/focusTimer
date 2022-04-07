@@ -20,6 +20,7 @@ export class VerificationComponent implements OnInit {
     private translateService: TranslateService,
     private activeRoute: ActivatedRoute
   ) {
+    //Obtain the language from the url
     this.lang = this.activeRoute.snapshot.params['lang'];
     this.translateService.use(this.lang);
   }

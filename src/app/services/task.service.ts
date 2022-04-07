@@ -15,6 +15,7 @@ export class TaskService {
     private toastr: ToastrService
   ) {}
 
+  //Method to save a Task on Firebase
   async saveTaskFirestore(task: any, userId: string) {
     let tempId = this.firestore.createId();
     await this.firestore
@@ -32,6 +33,7 @@ export class TaskService {
       });
   }
 
+  //Method to delete a Task on Firebase
   async deleteTask(taskId: string, uidUser: string, currentLang: string) {
     await this.firestore
       .collection('tasks')
@@ -45,6 +47,7 @@ export class TaskService {
           doc.ref.delete();
         });
       });
+    //Toastr message english
     if (currentLang === 'en-US') {
       this.toastr.error('You have deleted a task!', 'Alert', {
         timeOut: 5000,
@@ -56,6 +59,7 @@ export class TaskService {
         progressAnimation: 'decreasing'
       });
     }
+    //Toastr message spanish
     if (currentLang === 'es') {
       this.toastr.error('Has eliminado una tarea!', 'Alerta', {
         timeOut: 5000,
