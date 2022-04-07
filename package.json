@@ -32,7 +32,7 @@
     "colors": "^1.4.0",
     "dotenv": "^16.0.0",
     "firebase": "^9.4.0",
-    "minimist": "^1.2.5",
+    "minimist": "^1.2.6",
     "ng-circle-progress": "^1.6.0",
     "ng-particles": "^2.42.0",
     "ngx-spinner": "^13.1.1",
